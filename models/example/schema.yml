@@ -1,9 +1,9 @@
 version: 2
 
 sources:
-  - name: ibge
-    database: MAIN
-    schema: PUBLIC
+  - name: IBGE
+    database: WIKI_MULHER
+    schema: RAW
     tables:
       - name: raw_ibge_populacao_favelas
 models:
