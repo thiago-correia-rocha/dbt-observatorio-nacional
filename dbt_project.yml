@@ -39,7 +39,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  wiki_mulher:
+  wiki-mulher:
     refined:
       +materialized: table
       +schema: refined
