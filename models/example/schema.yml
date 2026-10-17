@@ -1,21 +1,11 @@
-
 version: 2
 
+sources:
+  - name: ibge
+    database: MAIN
+    schema: RAW
+    tables:
+      - name: raw_ibge_populacao_favelas
 models:
-    - name: my_first_dbt_model
+    - name: rfn_ibge_populacao_favelas
       description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
-
-    - name: rfn_ibge_populacao_favelafavela
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
