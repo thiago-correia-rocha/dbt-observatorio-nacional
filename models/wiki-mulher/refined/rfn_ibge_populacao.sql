@@ -3,7 +3,6 @@
 select
     Cod   as cod_ibge,
     TotalMulher  as mulheres_total,
-    Nivel  as nivel,
     "41"   as mulheres_0_4_anos,
     "42"   as mulheres_5_9_anos,
     "43"   as mulheres_10_14_anos,
