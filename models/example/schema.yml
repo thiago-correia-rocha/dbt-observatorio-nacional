@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: IBGE
+  - name: RAW
     database: WIKI_MULHER
     schema: RAW
     tables:
