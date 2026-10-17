@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: ibge
     database: MAIN
-    schema: RAW
+    schema: PUBLIC
     tables:
       - name: raw_ibge_populacao_favelas
 models:
