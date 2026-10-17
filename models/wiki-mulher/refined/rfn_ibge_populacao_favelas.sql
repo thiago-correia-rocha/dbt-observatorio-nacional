@@ -2,7 +2,7 @@
 
 select
     Cod   as cod_ibge,
-    M_22  as mulheres_total
+    M_22  as mulheres_total,
     M_1   as mulheres_0_4_anos,
     M_2   as mulheres_5_9_anos,
     M_3   as mulheres_10_14_anos,
