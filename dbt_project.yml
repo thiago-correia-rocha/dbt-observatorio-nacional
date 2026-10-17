@@ -40,7 +40,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   wiki-mulher:
-    refined:
-      +materialized: table
-      +schema: refined
-      +database: wiki_mulher
+    wiki-mulher:
+      refined:
+        +materialized: table
+        +database: WIKI_MULHER
+        +schema: refined
