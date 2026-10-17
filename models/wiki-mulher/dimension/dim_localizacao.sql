@@ -4,4 +4,5 @@ select
     cod             as cod_ibge,
     sigla           as uf,
     municipio       as municipio
-from {{ source('ibge', 'raw_ibge_populacao') }}
+from {{ ref('rfn_ibge_populacao') }}
+where nivel = 'MU'
