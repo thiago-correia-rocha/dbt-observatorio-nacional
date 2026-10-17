@@ -45,3 +45,7 @@ models:
         +materialized: table
         +database: WIKI_MULHER
         +schema: refined
+      dimension:
+        +materialized: table
+        +database: WIKI_MULHER
+        +schema: dimension

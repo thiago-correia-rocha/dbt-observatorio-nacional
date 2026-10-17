@@ -6,7 +6,7 @@ sources:
     schema: raw
     tables:
       - name: raw_ibge_populacao_favelas
-
+      - name: raw_ibge_populacao
 
 models:
   - name: rfn_ibge_populacao_favelas
