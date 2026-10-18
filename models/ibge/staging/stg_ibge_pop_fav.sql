@@ -96,7 +96,7 @@ select
     m.mulheres_fav as mulheres_pop_fav,
     case
         when h.homens_fav != 0 and m.mulheres_fav != 0
-        then round(m.mulheres_fav / (h.homens_fav + m.mulheres_fav),2)
+        then round(m.mulheres_fav / (h.homens_fav + m.mulheres_fav),4)
         else 0
     end    as mulheres_pop_fav_perct
 from mulheres_favela m
