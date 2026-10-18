@@ -24,7 +24,8 @@ models:
       - name: cod_ibge
         description: "Código geográfico do IBGE que identifica a unidade territorial de referência dos dados."
         data_tests:
-          not_null
+          - not_null
+          - unique
       - name: homens_total
         description: "População masculina total residente em favela na unidade territorial,
           considerando todas as faixas etárias."
@@ -163,6 +164,8 @@ models:
           correspondentes."
         data_tests:
           - not_null
+          - unique
+
       - name: mulheres_total
         description: "Número total de mulheres residentes na unidade territorial,
           considerando todas as faixas etárias."
