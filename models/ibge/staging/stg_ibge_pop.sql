@@ -158,6 +158,17 @@ from mulheres m
 inner join homens h
 on  m.cod_ibge =  h.cod_ibge
 and m.faixa_etaria = h.faixa_etaria
+),
+
+
+----POVOS ORIGIÁRIOS
+indigena as (
+    select
+        *,
+        'Total' as faixa_etaria,
+    from {{ ref('rfn_ibge_ind') }}
 )
 
-select * from populcao
+select
+    *
+from populcao

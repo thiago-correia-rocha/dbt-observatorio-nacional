@@ -1,5 +1,7 @@
-{{ config(materialized='table') }}
-
+{{  config(
+    materialized='table',
+        tags = ['ibge','população']
+) }}
 select
     Cod   as cod_ibge,
     TotalMulher  as mulheres_total,

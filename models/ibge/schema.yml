@@ -9,6 +9,7 @@ sources:
       - name: raw_ibge_pop_fav
       - name: raw_ibge_pop
       - name: raw_ibge_alfa
+      - name: raw_ibge_ind
 
 models:
   - name: rfn_ibge_pop_fav
