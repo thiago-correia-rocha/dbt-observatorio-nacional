@@ -14,7 +14,7 @@ models:
     description: "
       Tabela de população feminina residente em favelas e comunidades
       urbanas brasileiras, segundo o Censo Demográfico 2022 do IBGE.
-      Apresenta o total de mulheres e a distribuição da população
+      Apresenta o total de homens e mulheres e a distribuição da população
       feminina por faixas etárias quinquenais, desde 0 a 4 anos
       até 100 anos ou mais, por código geográfico do IBGE.
       Os dados permitem analisar a estrutura etária da população
