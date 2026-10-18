@@ -3,6 +3,8 @@
 select
     Cod   as cod_ibge,
     TotalMulher  as mulheres_total,
+    TotalHomem   as homens_total,
+    Nivel  as nivel,
     "41"   as mulheres_0_4_anos,
     "42"   as mulheres_5_9_anos,
     "43"   as mulheres_10_14_anos,
@@ -22,6 +24,26 @@ select
     "57"   as mulheres_85_89_anos,
     "58"   as mulheres_90_94_anos,
     "59"   as mulheres_95_99_anos,
-    "60"   mulheres_100_mais_anos
+    "60"   as mulheres_100_mais_anos,
+    "21"   as homens_0_4_anos,
+    "22"   as homens_5_9_anos,
+    "23"   as homens_10_14_anos,
+    "24"   as homens_20_24_anos,
+    "25"   as homens_25_29_anos,
+    "26"   as homens_30_34_anos,
+    "27"   as homens_35_39_anos,
+    "28"   as homens_40_44_anos,
+    "29"   as homens_45_49_anos,
+    "30"   as homens_50_54_anos,
+    "31"   as homens_55_59_anos,
+    "32"   as homens_60_64_anos,
+    "33"   as homens_65_69_anos,
+    "34"   as homens_70_74_anos,
+    "35"   as homens_75_79_anos,
+    "36"   as homens_80_84_anos,
+    "37"   as homens_85_89_anos,
+    "38"   as homens_90_94_anos,
+    "39"   as homens_95_99_anos,
+    "40"   as homens_100_mais_anos
 
 from {{ source('ibge', 'raw_ibge_pop') }}
