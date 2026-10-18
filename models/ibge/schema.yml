@@ -2,14 +2,15 @@ version: 2
 
 sources:
   - name: ibge
-    database: wiki_mulher
+    database: wiki_mulher_brasileira
     schema: raw
     tables:
-      - name: raw_ibge_populacao_favelas
-      - name: raw_ibge_populacao
+      - name: raw_ibge_loc
+      - name: raw_ibge_pop_fav
+      - name: raw_ibge_pop
 
 models:
-  - name: rfn_ibge_populacao_favelas
+  - name: rfn_ibge_pop_fav
     description: "
       Tabela de população feminina residente em favelas e comunidades
       urbanas brasileiras, segundo o Censo Demográfico 2022 do IBGE.
@@ -91,7 +92,7 @@ models:
         description: "Número de mulheres residentes com 100 anos ou mais de idade."
 
 
-  - name: dim_ibge_localizacao
+  - name: dim_ibge_loc
     description: "Dimensão geográfica dos municípios brasileiros, construída a partir
       dos dados do IBGE. Contém o código identificador do município,
       a sigla da Unidade da Federação (UF) e o nome do município.
@@ -121,7 +122,7 @@ models:
         data_tests:
           - not_null
 
-  - name: rfn_ibge_populacao
+  - name: rfn_ibge_pop
     description: "Tabela de população do IBGE, utilizada como base para análises
       demográficas e territoriais do projeto Wiki Mulher.
       Disponibiliza dados populacionais tratados na camada REFINED,
