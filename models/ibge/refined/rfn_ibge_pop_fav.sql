@@ -25,4 +25,4 @@ select
     M_20  as mulheres_95_99_anos,
     M_21  as mulheres_100_mais_anos
 
-from {{ source('ibge', 'raw_ibge_populacao_favelas') }}
+from {{ source('ibge', 'raw_ibge_pop_fav') }}
