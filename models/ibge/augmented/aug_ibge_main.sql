@@ -1,6 +1,6 @@
 {{ config(
     materialized='table',
-    tags = ['ibge','população','alfabetização','faixa etária']
+    tags = ['ibge','população','alfabetização','favela','faixa etária']
 ) }}
 
 select
