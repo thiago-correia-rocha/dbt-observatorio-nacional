@@ -1,7 +1,32 @@
-{{ config(materialized='table') }}
+{{ config(
+    materialized='table'
+    tags = ['ibge','população','favelas']
+) }}
 
 select
     Cod   as cod_ibge,
+    H_22  as homens_total,
+    H_1   as homens_0_4_anos,
+    H_2   as homens_5_9_anos,
+    H_3   as homens_10_14_anos,
+    H_4   as homens_15_19_anos,
+    H_5   as homens_20_24_anos,
+    H_6   as homens_25_29_anos,
+    H_7   as homens_30_34_anos,
+    H_8   as homens_35_39_anos,
+    H_9   as homens_40_44_anos,
+    H_10  as homens_45_49_anos,
+    H_11  as homens_50_54_anos,
+    H_12  as homens_55_59_anos,
+    H_13  as homens_60_64_anos,
+    H_14  as homens_65_69_anos,
+    H_15  as homens_70_74_anos,
+    H_16  as homens_75_79_anos,
+    H_17  as homens_80_84_anos,
+    H_18  as homens_85_89_anos,
+    H_19  as homens_90_94_anos,
+    H_20  as homens_95_99_anos,
+    H_21  as homens_100_mais_anos,
     M_22  as mulheres_total,
     M_1   as mulheres_0_4_anos,
     M_2   as mulheres_5_9_anos,

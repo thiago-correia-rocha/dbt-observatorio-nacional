@@ -2,15 +2,15 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'wiki_mulher'
+name: 'wiki_mulher_brasileira'
 version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
 
-dbt-cloud:
-  project-id: 70506183174166
+#dbt-cloud:
+#  project-id: 70506183174166
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for refined, states that models in this project can be
@@ -39,12 +39,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  wiki-mulher:
+  wiki_mulher_brasileira:
     ibge:
       refined:
         +materialized: table
         +database: WIKI_MULHER_BRASILEIRA
-        +schema: refined
+        +schema: REFINED
       staging:
         +materialized: table
         +database: WIKI_MULHER_BRASILEIRA

@@ -23,73 +23,96 @@ models:
     columns:
       - name: cod_ibge
         description: "Código geográfico do IBGE que identifica a unidade territorial de referência dos dados."
-
-      - name: mulheres_total
-        description: "População feminina total residente na unidade territorial,
+      - name: homens_total
+        description: "População masculina total residente em favela na unidade territorial,
           considerando todas as faixas etárias."
-
+      - name: homens_0_4_anos
+        description: "Nº de meninos residentes em favelas com 0 a 4 anos de idade."
+      - name: homens_5_9_anos
+        description: "Nº de meninos residentes em favelas com 5 a 9 anos de idade."
+      - name: homens_10_14_anos
+        description: "Nº de meninos residentes em favelas com 10 a 14 anos de idade."
+      - name: homens_15_19_anos
+        description: "Nº de homens residentes em favelas com 15 a 19 anos de idade."
+      - name: homens_20_24_anos
+        description: "Nº de homens residentes em favelas com 20 a 24 anos de idade."
+      - name: homens_25_29_anos
+        description: "Nº de homens residentes em favelas com 25 a 29 anos de idade."
+      - name: homens_30_34_anos
+        description: "Nº de homens residentes em favelas com 30 a 34 anos de idade."
+      - name: homens_35_39_anos
+        description: "Nº de homens residentes em favelas com 35 a 39 anos de idade."
+      - name: homens_40_44_anos
+        description: "Nº de homens residentes em favelas com 40 a 44 anos de idade."
+      - name: homens_45_49_anos
+        description: "Nº de homens residentes em favelas com 45 a 49 anos de idade."
+      - name: homens_50_54_anos
+        description: "Nº de homens residentes em favelas com 50 a 54 anos de idade."
+      - name: homens_55_59_anos
+        description: "Nº de homens residentes em favelas com 55 a 59 anos de idade."
+      - name: homens_60_64_anos
+        description: "Nº de homens residentes em favelas com 60 a 64 anos de idade."
+      - name: homens_65_69_anos
+        description: "Nº de homens residentes em favelas com 65 a 69 anos de idade."
+      - name: homens_70_74_anos
+        description: "Nº de homens residentes em favelas com 70 a 74 anos de idade."
+      - name: homens_75_79_anos
+        description: "Nº de homens residentes em favelas com 75 a 79 anos de idade."
+      - name: homens_80_84_anos
+        description: "Nº de homens residentes em favelas com 80 a 84 anos de idade."
+      - name: homens_85_89_anos
+        description: "Nº de homens residentes em favelas com 85 a 89 anos de idade."
+      - name: homens_90_94_anos
+        description: "Nº de homens residentes em favelas com 90 a 94 anos de idade."
+      - name: homens_95_99_anos
+        description: "Nº de homens residentes em favelas com 95 a 99 anos de idade."
+      - name: homens_100_mais_anos
+        description: "Nº de homens residentes em favelas com 100 anos ou mais de idade."
+      - name: mulheres_total
+        description: "População feminina total residente em favela na unidade territorial,
+          considerando todas as faixas etárias."
       - name: mulheres_0_4_anos
-        description: "Número de meninas residentes com 0 a 4 anos de idade."
-
+        description: "Nº de meninas residentes em favelas com 0 a 4 anos de idade."
       - name: mulheres_5_9_anos
-        description: "Número de meninas residentes com 5 a 9 anos de idade."
-
+        description: "Nº de meninas residentes em favelas com 5 a 9 anos de idade."
       - name: mulheres_10_14_anos
-        description: "Número de meninas residentes com 10 a 14 anos de idade."
-
+        description: "Nº de meninas residentes em favelas com 10 a 14 anos de idade."
       - name: mulheres_15_19_anos
-        description: "Número de mulheres residentes com 15 a 19 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 15 a 19 anos de idade."
       - name: mulheres_20_24_anos
-        description: "Número de mulheres residentes com 20 a 24 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 20 a 24 anos de idade."
       - name: mulheres_25_29_anos
-        description: "Número de mulheres residentes com 25 a 29 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 25 a 29 anos de idade."
       - name: mulheres_30_34_anos
-        description: "Número de mulheres residentes com 30 a 34 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 30 a 34 anos de idade."
       - name: mulheres_35_39_anos
-        description: "Número de mulheres residentes com 35 a 39 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 35 a 39 anos de idade."
       - name: mulheres_40_44_anos
-        description: "Número de mulheres residentes com 40 a 44 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 40 a 44 anos de idade."
       - name: mulheres_45_49_anos
-        description: "Número de mulheres residentes com 45 a 49 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 45 a 49 anos de idade."
       - name: mulheres_50_54_anos
-        description: "Número de mulheres residentes com 50 a 54 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 50 a 54 anos de idade."
       - name: mulheres_55_59_anos
-        description: "Número de mulheres residentes com 55 a 59 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 55 a 59 anos de idade."
       - name: mulheres_60_64_anos
-        description: "Número de mulheres residentes com 60 a 64 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 60 a 64 anos de idade."
       - name: mulheres_65_69_anos
-        description: "Número de mulheres residentes com 65 a 69 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 65 a 69 anos de idade."
       - name: mulheres_70_74_anos
-        description: "Número de mulheres residentes com 70 a 74 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 70 a 74 anos de idade."
       - name: mulheres_75_79_anos
-        description: "Número de mulheres residentes com 75 a 79 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 75 a 79 anos de idade."
       - name: mulheres_80_84_anos
-        description: "Número de mulheres residentes com 80 a 84 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 80 a 84 anos de idade."
       - name: mulheres_85_89_anos
-        description: "Número de mulheres residentes com 85 a 89 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 85 a 89 anos de idade."
       - name: mulheres_90_94_anos
-        description: "Número de mulheres residentes com 90 a 94 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 90 a 94 anos de idade."
       - name: mulheres_95_99_anos
-        description: "Número de mulheres residentes com 95 a 99 anos de idade."
-
+        description: "Nº de mulheres residentes em favelas com 95 a 99 anos de idade."
       - name: mulheres_100_mais_anos
-        description: "Número de mulheres residentes com 100 anos ou mais de idade."
+        description: "Nº de mulheres residentes em favelas com 100 anos ou mais de idade."
 
 
   - name: dim_ibge_loc
