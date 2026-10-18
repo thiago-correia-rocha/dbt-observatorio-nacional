@@ -8,7 +8,7 @@ select
     pop.faixa_etaria,
     pop.mulheres_pop,
     fav.mulheres_pop_fav,
-    round(fav.mulheres_pop_fav/nullif(pop.mulheres_pop, 0),4) as mulheres_pop_total_fav_perct
+    round(fav.mulheres_pop_fav/nullif(pop.mulheres_pop, 0),4) as mulheres_pop_total_fav_perct,
     fav.mulheres_pop_fav_perct,
     alfa.mulheres_alfabetizadas as mulheres_alfa,
     round((alfa.mulheres_alfabetizadas/pop.mulheres_pop),4)   as mulheres_alfa_perct
