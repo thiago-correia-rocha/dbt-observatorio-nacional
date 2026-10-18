@@ -24,4 +24,4 @@ select
     "59"   as mulheres_95_99_anos,
     "60"   mulheres_100_mais_anos
 
-from {{ source('ibge', 'raw_ibge_populacao') }}
+from {{ source('ibge', 'raw_ibge_pop') }}
