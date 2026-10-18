@@ -207,7 +207,7 @@ models:
         description: "Número de mulheres com 100 anos ou mais de idade."
 
 
-  - name: aug_ibge_pop_fav_alfa
+  - name: aug_ibge_main
     description: "Indicadores da população feminina brasileira por localização
       e faixa etária, incluindo distribuição populacional,
       residência em favelas e alfabetização, com base nos dados do IBGE."
