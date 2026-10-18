@@ -1,6 +1,6 @@
 {{ config(
     materialized='table',
-    tags = ['ibge','população','favelas']
+    tags = ['ibge','população','faixa etária']
 ) }}
 select
     pop.cod_ibge,
