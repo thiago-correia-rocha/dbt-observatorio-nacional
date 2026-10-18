@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'wiki-mulher'
+name: 'wiki_mulher'
 version: '1.0.0'
 config-version: 2
 
@@ -40,12 +40,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   wiki-mulher:
-    wiki-mulher:
+    ibge:
       refined:
         +materialized: table
-        +database: WIKI_MULHER
+        +database: WIKI_MULHER_BRASILEIRA
         +schema: refined
-      dimension:
+      staging:
         +materialized: table
-        +database: WIKI_MULHER
-        +schema: dimension
+        +database: WIKI_MULHER_BRASILEIRA
+        +schema: STAGING
+      augmented:
+        +materialized: table
+        +database: WIKI_MULHER_BRASILEIRA
+        +schema: AUGMENTED
