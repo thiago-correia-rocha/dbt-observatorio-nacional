@@ -43,13 +43,13 @@ models:
     ibge:
       refined:
         +materialized: table
-        +database: WIKI_MULHER_BRASILEIRA
-        +schema: REFINED
+        +database: wiki_mulher_brasileira
+        +schema: refined
       staging:
         +materialized: table
-        +database: WIKI_MULHER_BRASILEIRA
-        +schema: STAGING
+        +database: wiki_mulher_brasileira
+        +schema: staging
       augmented:
         +materialized: table
-        +database: WIKI_MULHER_BRASILEIRA
-        +schema: AUGMENTED
+        +database: wiki_mulher_brasileira
+        +schema: augmented

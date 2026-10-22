@@ -161,7 +161,7 @@ and m.faixa_etaria = h.faixa_etaria
 ),
 
 
-----POVOS ORIGIÁRIOS
+----POVOS ORIGINÁRIOS
 indigena as (
     select
         *,
