@@ -1,6 +1,7 @@
 {{  config(
     materialized='table',
-        tags = ['ibge','alfabetização']
+    tags = ['ibge','demografia','alfabetização'],
+    location = '{{ bucket() }}/refined/ibge/demografia/'
 ) }}
 
 select
@@ -64,4 +65,4 @@ select
     Indigena_Homens_Nao_Alfabetizadas,
     Indigena_Mulheres_Nao_Alfabetizadas,
     Total_Alfabetizados_Perct,Ranking
-from {{ source('ibge', 'raw_ibge_alfa') }}
+from {{ source('ibge', 'raw_demo_alfa') }}

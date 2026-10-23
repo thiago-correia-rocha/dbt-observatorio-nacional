@@ -1,6 +1,7 @@
 {{  config(
     materialized='table',
-        tags = ['ibge','população']
+    tags = ['ibge','população','demografia'],
+    location = '{{ bucket() }}/refined/ibge/demografia/'
 ) }}
 select
     Cod   as cod_ibge,
@@ -48,4 +49,4 @@ select
     "39"   as homens_95_99_anos,
     "40"   as homens_100_mais_anos
 
-from {{ source('ibge', 'raw_ibge_pop') }}
+from {{ source('ibge', 'raw_demo_pop') }}

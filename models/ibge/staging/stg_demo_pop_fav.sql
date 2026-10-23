@@ -1,83 +1,28 @@
 {{ config(
     materialized='table',
-    tags = ['ibge','população']
+    tags = ['ibge','demografia','população','favela']
 ) }}
 
 with
-----------------------------------P     O   P   U   L   A   Ç   Ã   O---------------------------------------------------
+----------------------------------F     A   V   E   L   A ---------------------------------------------------------------
 ---MAIN CTE
-main_cte as (
+cte_favela as (
 select
 *
-from {{ ref('rfn_ibge_pop') }}
-where nivel = 'MU'
-),
-
-----OS DADOS NÃO POSSUEM FAIXA ETÁRIA 15-19 ANOS. ESSA CTE CALCULA
-cte_faixa_faltante as (
-    select
-        *,
-
-        mulheres_total - (
-            mulheres_0_4_anos +
-            mulheres_5_9_anos +
-            mulheres_10_14_anos +
-            mulheres_20_24_anos +
-            mulheres_25_29_anos +
-            mulheres_30_34_anos +
-            mulheres_35_39_anos +
-            mulheres_40_44_anos +
-            mulheres_45_49_anos +
-            mulheres_50_54_anos +
-            mulheres_55_59_anos +
-            mulheres_60_64_anos +
-            mulheres_65_69_anos +
-            mulheres_70_74_anos +
-            mulheres_75_79_anos +
-            mulheres_80_84_anos +
-            mulheres_85_89_anos +
-            mulheres_90_94_anos +
-            mulheres_95_99_anos +
-            mulheres_100_mais_anos
-        ) as mulheres_15_19_anos,
-
-        homens_total - (
-            homens_0_4_anos +
-            homens_5_9_anos +
-            homens_10_14_anos +
-            homens_20_24_anos +
-            homens_25_29_anos +
-            homens_30_34_anos +
-            homens_35_39_anos +
-            homens_40_44_anos +
-            homens_45_49_anos +
-            homens_50_54_anos +
-            homens_55_59_anos +
-            homens_60_64_anos +
-            homens_65_69_anos +
-            homens_70_74_anos +
-            homens_75_79_anos +
-            homens_80_84_anos +
-            homens_85_89_anos +
-            homens_90_94_anos +
-            homens_95_99_anos +
-            homens_100_mais_anos
-        ) as homens_15_19_anos
-
-    from main_cte
+from {{ ref('rfn_demo_pop_fav') }}
 ),
 
 ---UNPIVOT DAS MULHERES
-mulheres as (
+mulheres_favela as (
     select
         cod_ibge,
         faixa_etaria,
-        mulheres
+        mulheres_fav
 
-    from cte_faixa_faltante
+    from cte_favela
 
     unpivot include nulls (
-            mulheres  for faixa_etaria in (
+            mulheres_fav  for faixa_etaria in (
             mulheres_total         as "Total",
             mulheres_0_4_anos      as "0-4",
             mulheres_5_9_anos      as "5-9",
@@ -106,16 +51,16 @@ mulheres as (
 ),
 
 ---UNPIVOT DAS MULHERES
-homens as (
+homens_favela as (
     select
         cod_ibge,
         faixa_etaria,
-        homens
+        homens_fav
 
-    from cte_faixa_faltante
+    from cte_favela
 
     unpivot include nulls (
-            homens  for faixa_etaria in (
+            homens_fav  for faixa_etaria in (
             homens_total         as "Total",
             homens_0_4_anos      as "0-4",
             homens_5_9_anos      as "5-9",
@@ -142,33 +87,22 @@ homens as (
     )
 
 ),
-----CTE FINAL DOS DADOS
-populcao as (
+----CTE FINAL DOS DADOS DE FAVELA
+favela as (
 select
     m.cod_ibge,
     m.faixa_etaria,
-    h.homens + m.mulheres as pop_total,
-    m.mulheres as mulheres_pop,
+    h.homens_fav + m.mulheres_fav as pop_fav,
+    m.mulheres_fav as mulheres_pop_fav,
     case
-        when h.homens != 0 and m.mulheres != 0
-        then round(m.mulheres / (h.homens + m.mulheres),4)
+        when h.homens_fav != 0 and m.mulheres_fav != 0
+        then round(m.mulheres_fav / (h.homens_fav + m.mulheres_fav),4)
         else 0
-    end    as mulheres_pop_perct
-from mulheres m
-inner join homens h
+    end    as mulheres_pop_fav_perct
+from mulheres_favela m
+inner join homens_favela h
 on  m.cod_ibge =  h.cod_ibge
 and m.faixa_etaria = h.faixa_etaria
-),
-
-
-----POVOS ORIGINÁRIOS
-indigena as (
-    select
-        *,
-        'Total' as faixa_etaria,
-    from {{ ref('rfn_ibge_ind') }}
 )
 
-select
-    *
-from populcao
+select * from favela

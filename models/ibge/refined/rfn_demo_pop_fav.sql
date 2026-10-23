@@ -1,6 +1,6 @@
 {{ config(
     materialized='table',
-    tags = ['ibge','população','favelas']
+    tags = ['ibge','demografia','população','favelas']
 ) }}
 
 select
@@ -50,4 +50,4 @@ select
     M_20  as mulheres_95_99_anos,
     M_21  as mulheres_100_mais_anos
 
-from {{ source('ibge', 'raw_ibge_pop_fav') }}
+from {{ source('ibge', 'raw_demo_pop_fav') }}

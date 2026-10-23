@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'wiki_mulher_brasileira'
+name: 'observatorio_nacional'
 version: '1.0.0'
 config-version: 2
 
@@ -39,17 +39,14 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  wiki_mulher_brasileira:
+  observatorio_nacional:
     ibge:
       refined:
         +materialized: table
-        +database: wiki_mulher_brasileira
-        +schema: refined
+        +file_format: parquet
       staging:
         +materialized: table
-        +database: wiki_mulher_brasileira
-        +schema: staging
+        +file_format: parquet
       augmented:
         +materialized: table
-        +database: wiki_mulher_brasileira
-        +schema: augmented
+        +file_format: parquet

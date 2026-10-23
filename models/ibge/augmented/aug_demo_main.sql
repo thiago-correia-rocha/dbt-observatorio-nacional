@@ -13,12 +13,12 @@ select
     alfa.mulheres_alfabetizadas as mulheres_alfa,
     round((alfa.mulheres_alfabetizadas/pop.mulheres_pop),4)   as mulheres_alfa_perct
 
-from {{ ref('stg_ibge_pop') }} pop
+from {{ ref('stg_demo_pop') }} pop
 
-inner join {{ ref('stg_ibge_pop_fav') }} fav
+inner join {{ ref('stg_demo_pop_fav') }} fav
 on pop.cod_ibge = fav.cod_ibge
 and pop.faixa_etaria = fav.faixa_etaria
 
-left join {{ ref('stg_ibge_alfa') }} alfa
+left join {{ ref('stg_demo_alfa') }} alfa
 on pop.cod_ibge = alfa.cod_ibge
 and pop.faixa_etaria = alfa.faixa_etaria

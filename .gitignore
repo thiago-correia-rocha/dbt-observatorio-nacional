@@ -4,3 +4,25 @@ target/
 dbt_packages/
 logs/
 dbt_internal_packages/
+# Python
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.pyc
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Credenciais
+.env
+.env.*
+profiles.yml
+
+# Executáveis locais
+dbt.exe
+
+# PyCharm
+.idea/
