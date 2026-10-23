@@ -1,6 +1,6 @@
 {{  config(
     materialized='table',
-        tags = ['ibge','demografia','alfabetização']
+    tags = ['ibge','demografia','alfabetização']
 ) }}
 
 select
