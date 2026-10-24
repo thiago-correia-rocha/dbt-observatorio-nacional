@@ -29,7 +29,7 @@ select
 
 from {{ ref('stg_demo_pop') }} pop
 
-inner join {{ ref('stg_demo_pop_fav') }} fav
+left join {{ ref('stg_demo_pop_fav') }} fav
 on pop.cod_ibge = fav.cod_ibge
 and pop.faixa_etaria = fav.faixa_etaria
 
