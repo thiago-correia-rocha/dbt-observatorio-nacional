@@ -1,7 +1,6 @@
 {{  config(
-    materialized='table',
     tags = ['ibge','demografia','povos originários','indígenas'],
-    location = '{{ bucket() }}/refined/ibge/demografia/'
+    s3_data_dir = bucket() ~ '/refined/'
 ) }}
 
 select
@@ -10,7 +9,8 @@ select
     regiao,
     nivel,
     localizacao,
-    total,
-    homens,
-    mulheres
+    cast(total   as int) as total,
+    cast(homens  as int) as homens,
+    cast(mulheres as int) as mulheres,
+    cast(current_timestamp as timestamp) as refresh_dt
 from {{ source('ibge', 'raw_demo_ind') }}

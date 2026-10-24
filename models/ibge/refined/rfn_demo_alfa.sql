@@ -1,8 +1,9 @@
-{{  config(
-    materialized='table',
-    tags = ['ibge','demografia','alfabetização'],
-    location = '{{ bucket() }}/refined/ibge/demografia/'
-) }}
+{{
+    config(
+        tags=['ibge', 'demografia', 'alfabetizacao'],
+        s3_data_dir = bucket() ~ '/refined/'
+    )
+}}
 
 select
     Cod,
@@ -29,7 +30,7 @@ select
     Indigena_Homens,
     Indigena_Mulheres,
     Total_Alfabetizadas,
-    Homens_Alfabetizadas,
+    Homens_Alfabetizadas as  Homens_Alfabetizados,
     Mulheres_Alfabetizadas,
     Branca_Total_Alfabetizadas,
     Branca_Homens_Alfabetizadas,
@@ -64,5 +65,7 @@ select
     Indigena_Total__Nao_Alfabetizadas,
     Indigena_Homens_Nao_Alfabetizadas,
     Indigena_Mulheres_Nao_Alfabetizadas,
-    Total_Alfabetizados_Perct,Ranking
+    Total_Alfabetizados_Perct,
+    Ranking,
+    cast(current_timestamp as timestamp) as refresh_dt
 from {{ source('ibge', 'raw_demo_alfa') }}

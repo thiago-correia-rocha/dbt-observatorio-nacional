@@ -43,7 +43,7 @@ models:
     ibge:
       refined:
         +materialized: table
-        +file_format: parquet
+        +format: parquet
       staging:
         +materialized: table
         +file_format: parquet

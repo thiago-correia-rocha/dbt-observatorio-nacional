@@ -3,121 +3,384 @@ version: 2
 sources:
   - name: ibge
     tables:
-      - name: raw_demo_loc
+      - name: raw_demo_local
       - name: raw_demo_pop_fav
       - name: raw_demo_pop
       - name: raw_demo_alfa
       - name: raw_demo_ind
 
 models:
-  - name: rfn_demo_pop_fav
-    description: "
-      Tabela de população feminina residente em favelas e comunidades
-      urbanas brasileiras, segundo o Censo Demográfico 2022 do IBGE.
-      Apresenta o total de homens e mulheres e a distribuição da população
-      feminina por faixas etárias quinquenais, desde 0 a 4 anos
-      até 100 anos ou mais, por código geográfico do IBGE.
-      Os dados permitem analisar a estrutura etária da população
-      feminina residente nesses territórios."
-    columns:
-      - name: cod_ibge
-        description: "Código geográfico do IBGE que identifica a unidade territorial de referência dos dados."
-        data_tests:
-          - not_null
-          - unique
-      - name: homens_total
-        description: "População masculina total residente em favela na unidade territorial,
-          considerando todas as faixas etárias."
-      - name: homens_0_4_anos
-        description: "Nº de meninos residentes em favelas com 0 a 4 anos de idade."
-      - name: homens_5_9_anos
-        description: "Nº de meninos residentes em favelas com 5 a 9 anos de idade."
-      - name: homens_10_14_anos
-        description: "Nº de meninos residentes em favelas com 10 a 14 anos de idade."
-      - name: homens_15_19_anos
-        description: "Nº de homens residentes em favelas com 15 a 19 anos de idade."
-      - name: homens_20_24_anos
-        description: "Nº de homens residentes em favelas com 20 a 24 anos de idade."
-      - name: homens_25_29_anos
-        description: "Nº de homens residentes em favelas com 25 a 29 anos de idade."
-      - name: homens_30_34_anos
-        description: "Nº de homens residentes em favelas com 30 a 34 anos de idade."
-      - name: homens_35_39_anos
-        description: "Nº de homens residentes em favelas com 35 a 39 anos de idade."
-      - name: homens_40_44_anos
-        description: "Nº de homens residentes em favelas com 40 a 44 anos de idade."
-      - name: homens_45_49_anos
-        description: "Nº de homens residentes em favelas com 45 a 49 anos de idade."
-      - name: homens_50_54_anos
-        description: "Nº de homens residentes em favelas com 50 a 54 anos de idade."
-      - name: homens_55_59_anos
-        description: "Nº de homens residentes em favelas com 55 a 59 anos de idade."
-      - name: homens_60_64_anos
-        description: "Nº de homens residentes em favelas com 60 a 64 anos de idade."
-      - name: homens_65_69_anos
-        description: "Nº de homens residentes em favelas com 65 a 69 anos de idade."
-      - name: homens_70_74_anos
-        description: "Nº de homens residentes em favelas com 70 a 74 anos de idade."
-      - name: homens_75_79_anos
-        description: "Nº de homens residentes em favelas com 75 a 79 anos de idade."
-      - name: homens_80_84_anos
-        description: "Nº de homens residentes em favelas com 80 a 84 anos de idade."
-      - name: homens_85_89_anos
-        description: "Nº de homens residentes em favelas com 85 a 89 anos de idade."
-      - name: homens_90_94_anos
-        description: "Nº de homens residentes em favelas com 90 a 94 anos de idade."
-      - name: homens_95_99_anos
-        description: "Nº de homens residentes em favelas com 95 a 99 anos de idade."
-      - name: homens_100_mais_anos
-        description: "Nº de homens residentes em favelas com 100 anos ou mais de idade."
-      - name: mulheres_total
-        description: "População feminina total residente em favela na unidade territorial,
-          considerando todas as faixas etárias."
-      - name: mulheres_0_4_anos
-        description: "Nº de meninas residentes em favelas com 0 a 4 anos de idade."
-      - name: mulheres_5_9_anos
-        description: "Nº de meninas residentes em favelas com 5 a 9 anos de idade."
-      - name: mulheres_10_14_anos
-        description: "Nº de meninas residentes em favelas com 10 a 14 anos de idade."
-      - name: mulheres_15_19_anos
-        description: "Nº de mulheres residentes em favelas com 15 a 19 anos de idade."
-      - name: mulheres_20_24_anos
-        description: "Nº de mulheres residentes em favelas com 20 a 24 anos de idade."
-      - name: mulheres_25_29_anos
-        description: "Nº de mulheres residentes em favelas com 25 a 29 anos de idade."
-      - name: mulheres_30_34_anos
-        description: "Nº de mulheres residentes em favelas com 30 a 34 anos de idade."
-      - name: mulheres_35_39_anos
-        description: "Nº de mulheres residentes em favelas com 35 a 39 anos de idade."
-      - name: mulheres_40_44_anos
-        description: "Nº de mulheres residentes em favelas com 40 a 44 anos de idade."
-      - name: mulheres_45_49_anos
-        description: "Nº de mulheres residentes em favelas com 45 a 49 anos de idade."
-      - name: mulheres_50_54_anos
-        description: "Nº de mulheres residentes em favelas com 50 a 54 anos de idade."
-      - name: mulheres_55_59_anos
-        description: "Nº de mulheres residentes em favelas com 55 a 59 anos de idade."
-      - name: mulheres_60_64_anos
-        description: "Nº de mulheres residentes em favelas com 60 a 64 anos de idade."
-      - name: mulheres_65_69_anos
-        description: "Nº de mulheres residentes em favelas com 65 a 69 anos de idade."
-      - name: mulheres_70_74_anos
-        description: "Nº de mulheres residentes em favelas com 70 a 74 anos de idade."
-      - name: mulheres_75_79_anos
-        description: "Nº de mulheres residentes em favelas com 75 a 79 anos de idade."
-      - name: mulheres_80_84_anos
-        description: "Nº de mulheres residentes em favelas com 80 a 84 anos de idade."
-      - name: mulheres_85_89_anos
-        description: "Nº de mulheres residentes em favelas com 85 a 89 anos de idade."
-      - name: mulheres_90_94_anos
-        description: "Nº de mulheres residentes em favelas com 90 a 94 anos de idade."
-      - name: mulheres_95_99_anos
-        description: "Nº de mulheres residentes em favelas com 95 a 99 anos de idade."
-      - name: mulheres_100_mais_anos
-        description: "Nº de mulheres residentes em favelas com 100 anos ou mais de idade."
+- name: rfn_demo_alfa
+  description: "Dados de alfabetização por localidade, idade, sexo e cor ou raça."
+  columns:
+  - name: cod
+    description: "Código geográfico IBGE."
+    data_tests:
+    - not_null
+  - name: cep
+    description: "Código geográfico ou postal de referência; confirmar definição na fonte."
+  - name: nivel
+    description: "Nível de agregação geográfica."
+  - name: sigla
+    description: "Sigla da unidade federativa."
+  - name: idade
+    description: "Idade ou grupo etário informado na fonte."
+  - name: total
+    description: "População total."
+  - name: homens_total
+    description: "População masculina total."
+  - name: mulheres_total
+    description: "População feminina total."
+  - name: branca_total
+    description: "População total de cor ou raça branca."
+  - name: branca_homens
+    description: "População masculina de cor ou raça branca."
+  - name: branca_mulheres
+    description: "População feminina de cor ou raça branca."
+  - name: preta_total
+    description: "População total de cor ou raça preta."
+  - name: preta_homens
+    description: "População masculina de cor ou raça preta."
+  - name: preta_mulheres
+    description: "População feminina de cor ou raça preta."
+  - name: amarela_total
+    description: "População total de cor ou raça amarela."
+  - name: amarela_homens
+    description: "População masculina de cor ou raça amarela."
+  - name: amarela_mulheres
+    description: "População feminina de cor ou raça amarela."
+  - name: parda_total
+    description: "População total de cor ou raça parda."
+  - name: parda_homens
+    description: "População masculina de cor ou raça parda."
+  - name: parda_mulheres
+    description: "População feminina de cor ou raça parda."
+  - name: indigena_total
+    description: "População total de cor ou raça indigena."
+  - name: indigena_homens
+    description: "População masculina de cor ou raça indigena."
+  - name: indigena_mulheres
+    description: "População feminina de cor ou raça indigena."
+  - name: total_alfabetizadas
+    description: "População alfabetizada."
+  - name: homens_alfabetizados
+    description: "População masculina alfabetizada."
+  - name: mulheres_alfabetizadas
+    description: "População feminina alfabetizada."
+  - name: branca_total_alfabetizadas
+    description: "População total de cor ou raça branca, alfabetizada."
+  - name: branca_homens_alfabetizadas
+    description: "População masculina de cor ou raça branca, alfabetizada."
+  - name: branca_mulheres_alfabetizadas
+    description: "População feminina de cor ou raça branca, alfabetizada."
+  - name: preta_total_alfabetizadas
+    description: "População total de cor ou raça preta, alfabetizada."
+  - name: preta_homens_alfabetizadas
+    description: "População masculina de cor ou raça preta, alfabetizada."
+  - name: preta_mulheres_alfabetizadas
+    description: "População feminina de cor ou raça preta, alfabetizada."
+  - name: amarela_total_alfabetizadas
+    description: "População total de cor ou raça amarela, alfabetizada."
+  - name: amarela_homens_alfabetizadas
+    description: "População masculina de cor ou raça amarela, alfabetizada."
+  - name: amarela_mulheres_alfabetizadas
+    description: "População feminina de cor ou raça amarela, alfabetizada."
+  - name: parda_total_alfabetizadas
+    description: "População total de cor ou raça parda, alfabetizada."
+  - name: parda_homens_alfabetizadas
+    description: "População masculina de cor ou raça parda, alfabetizada."
+  - name: parda_mulheres_alfabetizadas
+    description: "População feminina de cor ou raça parda, alfabetizada."
+  - name: indigena_total__alfabetizadas
+    description: "População total de cor ou raça indigena, alfabetizada."
+  - name: indigena_homens_alfabetizadas
+    description: "População masculina de cor ou raça indigena, alfabetizada."
+  - name: indigena_mulheres_alfabetizadas
+    description: "População feminina de cor ou raça indigena, alfabetizada."
+  - name: total_nao_alfabetizadas
+    description: "População não alfabetizada."
+  - name: homens_nao_alfabetizadas
+    description: "População masculina não alfabetizada."
+  - name: mulheres_nao_alfabetizadas
+    description: "População feminina não alfabetizada."
+  - name: branca_total_nao_alfabetizadas
+    description: "População total de cor ou raça branca, não alfabetizada."
+  - name: branca_homens_nao_alfabetizadas
+    description: "População masculina de cor ou raça branca, não alfabetizada."
+  - name: branca_mulheres_nao_alfabetizadas
+    description: "População feminina de cor ou raça branca, não alfabetizada."
+  - name: preta_total_nao_alfabetizadas
+    description: "População total de cor ou raça preta, não alfabetizada."
+  - name: preta_homens_nao_alfabetizadas
+    description: "População masculina de cor ou raça preta, não alfabetizada."
+  - name: preta_mulheres_nao_alfabetizadas
+    description: "População feminina de cor ou raça preta, não alfabetizada."
+  - name: amarela_total_nao_alfabetizadas
+    description: "População total de cor ou raça amarela, não alfabetizada."
+  - name: amarela_homens_nao_alfabetizadas
+    description: "População masculina de cor ou raça amarela, não alfabetizada."
+  - name: amarela_mulheres_nao_alfabetizadas
+    description: "População feminina de cor ou raça amarela, não alfabetizada."
+  - name: parda_total_nao_alfabetizadas
+    description: "População total de cor ou raça parda, não alfabetizada."
+  - name: parda_homens_nao_alfabetizadas
+    description: "População masculina de cor ou raça parda, não alfabetizada."
+  - name: parda_mulheres_nao_alfabetizadas
+    description: "População feminina de cor ou raça parda, não alfabetizada."
+  - name: indigena_total__nao_alfabetizadas
+    description: "População total de cor ou raça indigena, não alfabetizada."
+  - name: indigena_homens_nao_alfabetizadas
+    description: "População masculina de cor ou raça indigena, não alfabetizada."
+  - name: indigena_mulheres_nao_alfabetizadas
+    description: "População feminina de cor ou raça indigena, não alfabetizada."
+  - name: total_alfabetizados_perct
+    description: "Proporção de alfabetizados informada na fonte; validar escala."
+  - name: ranking
+    description: "Posição no ranking da fonte."
+  - name: refresh_dt
+    description: "Data e hora de atualização do modelo."
+    data_tests:
+    - not_null
+- name: rfn_demo_ind
+  description: "População indígena por localização e sexo."
+  columns:
+  - name: cep
+    description: "Código geográfico ou postal de referência; confirmar definição na fonte."
+  - name: sigla
+    description: "Sigla da unidade federativa."
+  - name: regiao
+    description: "Região geográfica."
+  - name: nivel
+    description: "Nível de agregação geográfica."
+  - name: localizacao
+    description: "Classificação da localização."
+  - name: total
+    description: "População total."
+  - name: homens
+    description: "População masculina."
+  - name: mulheres
+    description: "População feminina."
+  - name: refresh_dt
+    description: "Data e hora de atualização do modelo."
+    data_tests:
+    - not_null
+- name: rfn_demo_local
+  description: "Referência geográfica de municípios, códigos e unidades federativas."
+  columns:
+  - name: nivel
+    description: "Nível de agregação geográfica."
+  - name: cod
+    description: "Código geográfico IBGE."
+    data_tests:
+    - not_null
+  - name: sigla
+    description: "Sigla da unidade federativa."
+  - name: municipio
+    description: "Nome do município."
+  - name: municipio_c_uf
+    description: "Município com identificação da UF."
+  - name: refresh_dt
+    description: "Data e hora de atualização do modelo."
+    data_tests:
+    - not_null
+- name: rfn_demo_pop
+  description: "População por localidade, sexo e faixa etária, com valores numéricos."
+  columns:
+  - name: cod_ibge
+    description: "Código geográfico IBGE."
+    data_tests:
+    - not_null
+  - name: mulheres_total
+    description: "População feminina total."
+  - name: homens_total
+    description: "População masculina total."
+  - name: nivel
+    description: "Nível de agregação geográfica."
+  - name: mulheres_0_4_anos
+    description: "População feminina de 0 a 4 anos."
+  - name: mulheres_5_9_anos
+    description: "População feminina de 5 a 9 anos."
+  - name: mulheres_10_14_anos
+    description: "População feminina de 10 a 14 anos."
+  - name: mulheres_20_24_anos
+    description: "População feminina de 20 a 24 anos."
+  - name: mulheres_25_29_anos
+    description: "População feminina de 25 a 29 anos."
+  - name: mulheres_30_34_anos
+    description: "População feminina de 30 a 34 anos."
+  - name: mulheres_35_39_anos
+    description: "População feminina de 35 a 39 anos."
+  - name: mulheres_40_44_anos
+    description: "População feminina de 40 a 44 anos."
+  - name: mulheres_45_49_anos
+    description: "População feminina de 45 a 49 anos."
+  - name: mulheres_50_54_anos
+    description: "População feminina de 50 a 54 anos."
+  - name: mulheres_55_59_anos
+    description: "População feminina de 55 a 59 anos."
+  - name: mulheres_60_64_anos
+    description: "População feminina de 60 a 64 anos."
+  - name: mulheres_65_69_anos
+    description: "População feminina de 65 a 69 anos."
+  - name: mulheres_70_74_anos
+    description: "População feminina de 70 a 74 anos."
+  - name: mulheres_75_79_anos
+    description: "População feminina de 75 a 79 anos."
+  - name: mulheres_80_84_anos
+    description: "População feminina de 80 a 84 anos."
+  - name: mulheres_85_89_anos
+    description: "População feminina de 85 a 89 anos."
+  - name: mulheres_90_94_anos
+    description: "População feminina de 90 a 94 anos."
+  - name: mulheres_95_99_anos
+    description: "População feminina de 95 a 99 anos."
+  - name: mulheres_100_mais_anos
+    description: "População feminina de 100 anos ou mais."
+  - name: homens_0_4_anos
+    description: "População masculina de 0 a 4 anos."
+  - name: homens_5_9_anos
+    description: "População masculina de 5 a 9 anos."
+  - name: homens_10_14_anos
+    description: "População masculina de 10 a 14 anos."
+  - name: homens_20_24_anos
+    description: "População masculina de 20 a 24 anos."
+  - name: homens_25_29_anos
+    description: "População masculina de 25 a 29 anos."
+  - name: homens_30_34_anos
+    description: "População masculina de 30 a 34 anos."
+  - name: homens_35_39_anos
+    description: "População masculina de 35 a 39 anos."
+  - name: homens_40_44_anos
+    description: "População masculina de 40 a 44 anos."
+  - name: homens_45_49_anos
+    description: "População masculina de 45 a 49 anos."
+  - name: homens_50_54_anos
+    description: "População masculina de 50 a 54 anos."
+  - name: homens_55_59_anos
+    description: "População masculina de 55 a 59 anos."
+  - name: homens_60_64_anos
+    description: "População masculina de 60 a 64 anos."
+  - name: homens_65_69_anos
+    description: "População masculina de 65 a 69 anos."
+  - name: homens_70_74_anos
+    description: "População masculina de 70 a 74 anos."
+  - name: homens_75_79_anos
+    description: "População masculina de 75 a 79 anos."
+  - name: homens_80_84_anos
+    description: "População masculina de 80 a 84 anos."
+  - name: homens_85_89_anos
+    description: "População masculina de 85 a 89 anos."
+  - name: homens_90_94_anos
+    description: "População masculina de 90 a 94 anos."
+  - name: homens_95_99_anos
+    description: "População masculina de 95 a 99 anos."
+  - name: homens_100_mais_anos
+    description: "População masculina de 100 anos ou mais."
+  - name: refresh_dt
+    description: "Data e hora de atualização do modelo."
+    data_tests:
+    - not_null
+- name: rfn_demo_pop_fav
+  description: "População em favelas e comunidades urbanas por município, sexo e faixa etária."
+  columns:
+  - name: cod_ibge
+    description: "Código geográfico IBGE."
+    data_tests:
+    - not_null
+  - name: homens_total
+    description: "População masculina total."
+  - name: homens_0_4_anos
+    description: "População masculina em favelas de 0 a 4 anos."
+  - name: homens_5_9_anos
+    description: "População masculina em favelas de 5 a 9 anos."
+  - name: homens_10_14_anos
+    description: "População masculina em favelas de 10 a 14 anos."
+  - name: homens_15_19_anos
+    description: "População masculina em favelas de 15 a 19 anos."
+  - name: homens_20_24_anos
+    description: "População masculina em favelas de 20 a 24 anos."
+  - name: homens_25_29_anos
+    description: "População masculina em favelas de 25 a 29 anos."
+  - name: homens_30_34_anos
+    description: "População masculina em favelas de 30 a 34 anos."
+  - name: homens_35_39_anos
+    description: "População masculina em favelas de 35 a 39 anos."
+  - name: homens_40_44_anos
+    description: "População masculina em favelas de 40 a 44 anos."
+  - name: homens_45_49_anos
+    description: "População masculina em favelas de 45 a 49 anos."
+  - name: homens_50_54_anos
+    description: "População masculina em favelas de 50 a 54 anos."
+  - name: homens_55_59_anos
+    description: "População masculina em favelas de 55 a 59 anos."
+  - name: homens_60_64_anos
+    description: "População masculina em favelas de 60 a 64 anos."
+  - name: homens_65_69_anos
+    description: "População masculina em favelas de 65 a 69 anos."
+  - name: homens_70_74_anos
+    description: "População masculina em favelas de 70 a 74 anos."
+  - name: homens_75_79_anos
+    description: "População masculina em favelas de 75 a 79 anos."
+  - name: homens_80_84_anos
+    description: "População masculina em favelas de 80 a 84 anos."
+  - name: homens_85_89_anos
+    description: "População masculina em favelas de 85 a 89 anos."
+  - name: homens_90_94_anos
+    description: "População masculina em favelas de 90 a 94 anos."
+  - name: homens_95_99_anos
+    description: "População masculina em favelas de 95 a 99 anos."
+  - name: homens_100_mais_anos
+    description: "População masculina em favelas de 100 anos ou mais."
+  - name: mulheres_total
+    description: "População feminina total."
+  - name: mulheres_0_4_anos
+    description: "População feminina em favelas de 0 a 4 anos."
+  - name: mulheres_5_9_anos
+    description: "População feminina em favelas de 5 a 9 anos."
+  - name: mulheres_10_14_anos
+    description: "População feminina em favelas de 10 a 14 anos."
+  - name: mulheres_15_19_anos
+    description: "População feminina em favelas de 15 a 19 anos."
+  - name: mulheres_20_24_anos
+    description: "População feminina em favelas de 20 a 24 anos."
+  - name: mulheres_25_29_anos
+    description: "População feminina em favelas de 25 a 29 anos."
+  - name: mulheres_30_34_anos
+    description: "População feminina em favelas de 30 a 34 anos."
+  - name: mulheres_35_39_anos
+    description: "População feminina em favelas de 35 a 39 anos."
+  - name: mulheres_40_44_anos
+    description: "População feminina em favelas de 40 a 44 anos."
+  - name: mulheres_45_49_anos
+    description: "População feminina em favelas de 45 a 49 anos."
+  - name: mulheres_50_54_anos
+    description: "População feminina em favelas de 50 a 54 anos."
+  - name: mulheres_55_59_anos
+    description: "População feminina em favelas de 55 a 59 anos."
+  - name: mulheres_60_64_anos
+    description: "População feminina em favelas de 60 a 64 anos."
+  - name: mulheres_65_69_anos
+    description: "População feminina em favelas de 65 a 69 anos."
+  - name: mulheres_70_74_anos
+    description: "População feminina em favelas de 70 a 74 anos."
+  - name: mulheres_75_79_anos
+    description: "População feminina em favelas de 75 a 79 anos."
+  - name: mulheres_80_84_anos
+    description: "População feminina em favelas de 80 a 84 anos."
+  - name: mulheres_85_89_anos
+    description: "População feminina em favelas de 85 a 89 anos."
+  - name: mulheres_90_94_anos
+    description: "População feminina em favelas de 90 a 94 anos."
+  - name: mulheres_95_99_anos
+    description: "População feminina em favelas de 95 a 99 anos."
+  - name: mulheres_100_mais_anos
+    description: "População feminina em favelas de 100 anos ou mais."
+  - name: refresh_dt
+    description: "Data e hora de atualização do modelo."
+    data_tests:
+    - not_null
 
-
-  - name: dim_demo_loc
+  - name: dim_demo_local
     description: "Dimensão geográfica dos municípios brasileiros, construída a partir
       dos dados do IBGE. Contém o código identificador do município,
       a sigla da Unidade da Federação (UF) e o nome do município.
@@ -145,85 +408,52 @@ models:
           - not_null
 
 
-  - name: rfn_demo_pop
-    description: "Tabela de população do IBGE, utilizada como base para análises
-      demográficas e territoriais do projeto Wiki Mulher.
-      Disponibiliza dados populacionais tratados na camada REFINED,
-      permitindo a integração com a dimensão geográfica dos municípios
-      e a construção de indicadores demográficos.
-      A granularidade e os indicadores específicos dependem dos
-      campos presentes no modelo SQL."
+  - name: aug_demo_main
+    description: "Indicadores demográficos por município e faixa etária, integrando população, favelas e alfabetização do IBGE."
     columns:
       - name: cod_ibge
-        description: "Código geográfico do IBGE associado ao registo populacional.
-          Permite relacionar os dados com as unidades territoriais
-          correspondentes."
+        description: "Código IBGE do município."
         data_tests:
           - not_null
-          - unique
-      - name: mulheres_total
-        description: "Número total de mulheres residentes na unidade territorial,
-          considerando todas as faixas etárias."
-      - name: mulheres_0_4_anos
-        description: "Número de meninas com 0 a 4 anos de idade."
-      - name: mulheres_5_9_anos
-        description: "Número de meninas com 5 a 9 anos de idade."
-      - name: mulheres_10_14_anos
-        description: "Número de meninas com 10 a 14 anos de idade."
-      - name: mulheres_20_24_anos
-        description: "Número de mulheres com 20 a 24 anos de idade."
-      - name: mulheres_25_29_anos
-        description: "Número de mulheres com 25 a 29 anos de idade."
-      - name: mulheres_30_34_anos
-        description: "Número de mulheres com 30 a 34 anos de idade."
-      - name: mulheres_35_39_anos
-        description: "Número de mulheres com 35 a 39 anos de idade."
-      - name: mulheres_40_44_anos
-        description: "Número de mulheres com 40 a 44 anos de idade."
-      - name: mulheres_45_49_anos
-        description: "Número de mulheres com 45 a 49 anos de idade."
-      - name: mulheres_50_54_anos
-        description: "Número de mulheres com 50 a 54 anos de idade."
-      - name: mulheres_55_59_anos
-        description: "Número de mulheres com 55 a 59 anos de idade."
-      - name: mulheres_60_64_anos
-        description: "Número de mulheres com 60 a 64 anos de idade."
-      - name: mulheres_65_69_anos
-        description: "Número de mulheres com 65 a 69 anos de idade."
-      - name: mulheres_70_74_anos
-        description: "Número de mulheres com 70 a 74 anos de idade."
-      - name: mulheres_75_79_anos
-        description: "Número de mulheres com 75 a 79 anos de idade."
-      - name: mulheres_80_84_anos
-        description: "Número de mulheres com 80 a 84 anos de idade."
-      - name: mulheres_85_89_anos
-        description: "Número de mulheres com 85 a 89 anos de idade."
-      - name: mulheres_90_94_anos
-        description: "Número de mulheres com 90 a 94 anos de idade."
-      - name: mulheres_95_99_anos
-        description: "Número de mulheres com 95 a 99 anos de idade."
-      - name: mulheres_100_mais_anos
-        description: "Número de mulheres com 100 anos ou mais de idade."
-
-
-  - name: aug_demo_main
-    description: "Indicadores da população feminina brasileira por localização
-      e faixa etária, incluindo distribuição populacional,
-      residência em favelas e alfabetização, com base nos dados do IBGE."
-    columns:
-      - name: cod_ibge
-        description: "Código geográfico da unidade territorial do IBGE."
       - name: faixa_etaria
-        description: "Grupo etário da população analisada."
+        description: "Faixa etária ou total agregado."
+        data_tests:
+          - not_null
+      - name: pop_total
+        description: "População total."
+      - name: pop_fav
+        description: "População residente em favelas."
+      - name: pop_fav_perc
+        description: "Proporção da população residente em favelas."
+      - name: pop_alfa
+        description: "População alfabetizada."
+      - name: pop_alfa_perc
+        description: "Proporção da população alfabetizada."
+      - name: homens_pop
+        description: "População masculina."
+      - name: homens_pop_fav
+        description: "Homens residentes em favelas."
+      - name: homens_pop_total_fav_perct
+        description: "Proporção de homens residentes em favelas face à população masculina. Rever cálculo SQL."
+      - name: homens_pop_fav_perct
+        description: "Proporção masculina definida no staging de favelas."
+      - name: homens_alfa
+        description: "Homens alfabetizados."
+      - name: homens_alfa_perct
+        description: "Proporção de homens alfabetizados. Rever cálculo SQL."
       - name: mulheres_pop
-        description: "População feminina total."
+        description: "População feminina."
       - name: mulheres_pop_fav
-        description: "População feminina residente em favelas."
+        description: "Mulheres residentes em favelas."
       - name: mulheres_pop_total_fav_perct
-        description: "Proporção de mulheres que residem em favelas."
+        description: "Proporção de mulheres residentes em favelas face à população feminina."
       - name: mulheres_pop_fav_perct
-        description: "Participação feminina na população residente em favelas."
+        description: "Proporção feminina definida no staging de favelas."
       - name: mulheres_alfa
-        description: "População feminina alfabetizada."
+        description: "Mulheres alfabetizadas."
       - name: mulheres_alfa_perct
-        description: "Taxa de alfabetização feminina."
+        description: "Proporção de mulheres alfabetizadas."
+      - name: refresh_dt
+        description: "Data e hora da atualização dos indicadores."
+        data_tests:
+          - not_null
