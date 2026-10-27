@@ -8,6 +8,11 @@ sources:
       - name: raw_demo_pop
       - name: raw_demo_alfa
       - name: raw_demo_ind
+      - name: raw_demo_hab_fav
+      - name: raw_demo_hab_col
+      - name: raw_demo_hab_abas
+      - name: raw_demo_hab_ban
+      - name: raw_demo_hab_esg
 
 models:
 - name: rfn_demo_alfa
@@ -169,7 +174,7 @@ models:
   columns:
   - name: nivel
     description: "Nível de agregação geográfica."
-  - name: cod
+  - name: cod_ibge
     description: "Código geográfico IBGE."
     data_tests:
     - not_null
@@ -380,6 +385,158 @@ models:
     data_tests:
     - not_null
 
+
+
+  - name: rfn_demo_hab_fav
+    description: "Quantidade total de favelas e comunidades urbanas por Unidade Federativa."
+    columns:
+      - name: cep
+        description: "Unidade Federativa ou Brasil"
+        data_tests:
+          - not_null
+          - unique
+      - name: nivel
+        description: "Define o nível do dado: UF ou BR (nacional)"
+      - name: sigla
+        description: "Sigla da Unidade Federativa"
+      - name: qtd_favelas
+        description: "Quantidade total de favelas ou comunidades urbanas por Unidade Federativa."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+  - name: rfn_demo_hab_esg
+    description: "Dados do Censo Demográfico 2022 do IBGE sobre esgotamento sanitário dos domicílios brasileiros, incluindo formas de escoamento e instalações sanitárias."
+    columns:
+      - name: cod_ibge
+        description: "Código geográfico do IBGE."
+      - name: cep
+        description: "Identificador geográfico presente na fonte original."
+      - name: sigla
+        description: "Sigla territorial presente na fonte original."
+      - name: total
+        description: "Total de domicílios no recorte analisado."
+      - name: rede_geral
+        description: "Domicílios com esgotamento por rede geral."
+      - name: fossa_septica
+        description: "Domicílios com esgotamento por fossa séptica."
+      - name: fossa_rudimentar_buraco
+        description: "Domicílios com esgotamento por fossa rudimentar ou buraco."
+      - name: vala
+        description: "Domicílios com esgotamento por vala."
+      - name: rio_lago_corrego_mar
+        description: "Domicílios com esgotamento em rio, lago, córrego ou mar."
+      - name: outra_forma
+        description: "Domicílios com outra forma de esgotamento sanitário."
+      - name: sem_banheiro
+        description: "Domicílios sem banheiro ou sanitário."
+      - name: esgoto_perct
+        description: "Indicador percentual de esgotamento sanitário, conforme definição da fonte."
+      - name: ranking
+        description: "Posição no ranking definido pela fonte original."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+
+  - name: rfn_demo_hab_abas
+    description: "Dados do Censo Demográfico 2022 do IBGE sobre as formas de abastecimento de água nos domicílios brasileiros, incluindo rede geral, poços, nascentes, carros-pipa, água da chuva e outras fontes."
+    columns:
+      - name: cod_ibge
+        description: "Código geográfico do IBGE."
+      - name: cep
+        description: "Identificador geográfico presente na fonte original."
+      - name: nivel
+        description: "Nível de agregação geográfica. BR - Brasil, UF - Unidade Federativa,MU - Município"
+      - name: sigla
+        description: "Sigla territorial presente na fonte original."
+      - name: existencia
+        description: "Classificação de existência utilizada pela fonte original para caracterizar os domicílios."
+      - name: total
+        description: "Total de domicílios no recorte analisado."
+      - name: rede_geral
+        description: "Quantidade de domicílios abastecidos pela rede geral de distribuição de água."
+      - name: poco_artesiano
+        description: "Quantidade de domicílios abastecidos por poço profundo ou artesiano."
+      - name: poco_raso
+        description: "Quantidade de domicílios abastecidos por poço raso."
+      - name: fonte_nascente
+        description: "Quantidade de domicílios abastecidos por fonte ou nascente."
+      - name: carro_pipa
+        description: "Quantidade de domicílios abastecidos por carro-pipa."
+      - name: agua_chuva
+        description: "Quantidade de domicílios que utilizam água da chuva como fonte de abastecimento."
+      - name: rios_acudes
+        description: "Quantidade de domicílios abastecidos por rios, açudes ou outras fontes superficiais de água."
+      - name: outra
+        description: "Quantidade de domicílios com outras formas de abastecimento de água."
+      - name: abastecimento
+        description: "Indicador percentual de abastecimento de água disponibilizado pela fonte original, cuja unidade e metodologia devem ser confirmadas."
+      - name: ranking
+        description: "Valor do ranking de abastecimento de água definido pela fonte original."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+  - name: rfn_demo_hab_ban
+    description: "Dados do Censo Demográfico 2022 do IBGE sobre a existência e as condições de utilização de banheiros e sanitários nos domicílios brasileiros."
+    columns:
+      - name: cod_ibge
+        description: "Código geográfico do IBGE."
+      - name: cep
+        description: "Identificador geográfico presente na fonte original."
+      - name: nivel
+        description: "Nível de agregação geográfica. BR - Brasil, UF - Unidade Federativa,MU - Município"
+      - name: sigla
+        description: "Sigla territorial presente na fonte original."
+      - name: tipo_esgoto
+        description: "Classificação do tipo de esgotamento sanitário associada ao recorte analisado."
+      - name: total
+        description: "Total de domicílios no recorte analisado."
+      - name: banheiro_exclusivo
+        description: "Quantidade de domicílios com banheiro de uso exclusivo."
+      - name: banheiro_uso_comum
+        description: "Quantidade de domicílios com banheiro de uso comum."
+      - name: apenas_sanitario
+        description: "Quantidade de domicílios que possuem apenas sanitário, sem banheiro completo."
+      - name: sem_banheiro
+        description: "Quantidade de domicílios sem banheiro ou sanitário, conforme classificação da fonte."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+  - name: rfn_demo_hab_col
+    description: "Dados do Censo Demográfico 2022 do IBGE sobre a destinação do lixo nos domicílios brasileiros, incluindo coleta, queima, enterramento e outras formas de descarte."
+    columns:
+      - name: cod_ibge
+        description: "Código geográfico do IBGE."
+      - name: cep
+        description: "Identificador geográfico presente na fonte original."
+      - name: nivel
+        description: "Nível de agregação geográfica.BR - Brasil, UF - Unidade Federativa,MU - Município"
+      - name: sigla
+        description: "Sigla territorial presente na fonte original."
+      - name: total
+        description: "Total de domicílios no recorte analisado."
+      - name: coletado
+        description: "Quantidade de domicílios cujo lixo é coletado."
+      - name: queimado
+        description: "Quantidade de domicílios cujo lixo é queimado na propriedade."
+      - name: enterrado
+        description: "Quantidade de domicílios cujo lixo é enterrado na propriedade."
+      - name: jogado
+        description: "Quantidade de domicílios cujo lixo é descartado em locais como terrenos baldios ou áreas públicas, conforme classificação da fonte."
+      - name: outro_destino
+        description: "Quantidade de domicílios com outras formas de destinação do lixo."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
   - name: dim_demo_local
     description: "Dimensão geográfica dos municípios brasileiros, construída a partir
       dos dados do IBGE. Contém o código identificador do município,
@@ -406,9 +563,12 @@ models:
           classificação geográfica do IBGE."
         data_tests:
           - not_null
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
 
-
-  - name: aug_demo_main
+  - name: aug_demo_pop
     description: "Indicadores demográficos por município e faixa etária, integrando população, favelas e alfabetização do IBGE."
     columns:
       - name: cod_ibge
@@ -457,3 +617,80 @@ models:
         description: "Data e hora da atualização dos indicadores."
         data_tests:
           - not_null
+
+  - name: aug_demo_hab
+    description: "Modelo consolidado de indicadores de habitação e saneamento básico do Censo Demográfico 2022 do IBGE, abrangendo coleta de lixo, esgotamento sanitário, abastecimento de água, banheiros e quantidade de favelas por unidade federativa."
+    columns:
+      - name: cod_ibge
+        description: "Código geográfico do IBGE que identifica o território analisado."
+      # Coleta de lixo
+      - name: col_total
+        description: "Total de domicílios considerados nos indicadores de destinação do lixo."
+      - name: col_coletado
+        description: "Quantidade de domicílios cujo lixo é coletado."
+      - name: col_queimado
+        description: "Quantidade de domicílios cujo lixo é queimado na propriedade."
+      - name: col_enterrado
+        description: "Quantidade de domicílios cujo lixo é enterrado na propriedade."
+      - name: col_jogado
+        description: "Quantidade de domicílios cujo lixo é descartado em locais classificados como descarte direto pela fonte original."
+      - name: col_outro_destino
+        description: "Quantidade de domicílios com outras formas de destinação do lixo."
+
+      # Esgotamento sanitário
+      - name: esg_total
+        description: "Total de domicílios considerados nos indicadores de esgotamento sanitário."
+      - name: esg_rede_geral
+        description: "Quantidade de domicílios com esgotamento sanitário por rede geral."
+      - name: esg_fossa_septica
+        description: "Quantidade de domicílios com esgotamento sanitário por fossa séptica."
+      - name: esg_fossa_rudimentar_buraco
+        description: "Quantidade de domicílios com esgotamento por fossa rudimentar ou buraco."
+      - name: esg_vala
+        description: "Quantidade de domicílios com esgotamento sanitário por vala."
+      - name: esg_rio_lago_corrego_mar
+        description: "Quantidade de domicílios com esgotamento sanitário em rio, lago, córrego ou mar."
+      - name: esg_outra_forma
+        description: "Quantidade de domicílios com outras formas de esgotamento sanitário."
+      - name: esg_sem_banheiro
+        description: "Quantidade de domicílios sem banheiro ou sanitário, conforme classificação da fonte."
+      - name: esg_esgoto_perct
+        description: "Indicador percentual de esgotamento sanitário disponibilizado pela fonte original."
+      - name: esg_ranking
+        description: "Posição no ranking de esgotamento sanitário definido pela fonte original."
+
+      # Abastecimento de água
+      - name: abas_total
+        description: "Total de domicílios considerados nos indicadores de abastecimento de água."
+      - name: abas_rede_geral
+        description: "Quantidade de domicílios abastecidos pela rede geral de distribuição de água."
+      - name: abas_poco_artesiano
+        description: "Quantidade de domicílios abastecidos por poço profundo ou artesiano."
+      - name: abas_poco_raso
+        description: "Quantidade de domicílios abastecidos por poço raso."
+      - name: abas_fonte_nascente
+        description: "Quantidade de domicílios abastecidos por fonte ou nascente."
+      - name: abas_carro_pipa
+        description: "Quantidade de domicílios abastecidos por carro-pipa."
+      - name: abas_agua_chuva
+        description: "Quantidade de domicílios que utilizam água da chuva como fonte de abastecimento."
+      - name: abas_rios_acudes
+        description: "Quantidade de domicílios abastecidos por rios, açudes ou outras fontes superficiais."
+      - name: abas_outra
+        description: "Quantidade de domicílios com outras formas de abastecimento de água."
+      - name: abas_abastecimento
+        description: "Indicador de abastecimento de água disponibilizado pela fonte original, cuja unidade deve ser confirmada."
+      - name: abas_ranking
+        description: "Posição no ranking de abastecimento de água definido pela fonte original."
+      - name: ban_total
+        description: "Total de domicílios considerados nos indicadores de existência de banheiros e sanitários."
+      - name: ban_banheiro_exclusivo
+        description: "Quantidade de domicílios com banheiro de uso exclusivo."
+      - name: ban_banheiro_uso_comum
+        description: "Quantidade de domicílios com banheiro de uso comum."
+      - name: ban_apenas_sanitario
+        description: "Quantidade de domicílios que possuem apenas sanitário."
+      - name: ban_sem_banheiro
+        description: "Quantidade de domicílios sem banheiro ou sanitário, conforme classificação da fonte."
+      - name: qtd_favelas
+        description: "Quantidade de favelas e comunidades urbanas identificadas no território. Indicador disponível apenas para unidades federativas; nulo para municípios."

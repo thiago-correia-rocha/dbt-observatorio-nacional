@@ -1,6 +1,6 @@
 {% macro ibge_raw() %}
     {% call statement() %}
-        create database if not exists ibge
+        create database if not exists ibge;
     {% endcall %}
 
     {% call statement() %}
@@ -358,6 +358,95 @@
         )
         stored as parquet
         location '{{ bucket() }}/raw/ibge/demografia/raw_demo_pop_fav/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_esg (
+                cod string,
+                cep string,
+                nivel string,
+                sigla string,
+                total string,
+                rede_geral string,
+                fossa_septica string,
+                fossa_rudimentar_buraco string,
+                vala string,
+                rio_lago_corrego_mar string,
+                outra_forma string,
+                sem_banheiro string,
+                esgoto_perct string,
+                ranking string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_esg/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_abas (
+            cod string,
+            cep string,
+            nivel string,
+            sigla string,
+            existencia string,
+            total string,
+            rede_geral string,
+            poco_artesiano string,
+            poco_raso string,
+            fonte_nascente string,
+            carro_pipa string,
+            agua_chuva string,
+            rios_acudes string,
+            outra string,
+            abastecimento string,
+            ranking string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_abas/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_col (
+            cod string,
+            cep string,
+            nivel string,
+            sigla string,
+            total string,
+            coletado string,
+            queimado string,
+            enterrado string,
+            jogado string,
+            outro_destino string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_col/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_ban (
+            cod string,
+            cep string,
+            nivel string,
+            sigla string,
+            tipo_esgoto string,
+            total string,
+            banheiro_exclusivo string,
+            banheiro_uso_comum string,
+            apenas_sanitario string,
+            sem_banheiro string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_ban/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_fav (
+            cep string,
+            nivel string,
+            sigla string,
+            qtd_favelas string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_fav/'
     {% endcall %}
 
 {% endmacro %}

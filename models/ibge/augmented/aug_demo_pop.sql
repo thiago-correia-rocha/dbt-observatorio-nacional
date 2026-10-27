@@ -6,7 +6,9 @@
 }}
 
 select
-    pop.cod_ibge,
+    loc.cod_ibge,
+    loc.nivel,
+    loc.descricao,
     pop.faixa_etaria,
     pop.pop_total,
     cast(fav.homens_pop_fav as double) + cast(fav.mulheres_pop_fav as double) as pop_fav,
@@ -36,3 +38,7 @@ and pop.faixa_etaria = fav.faixa_etaria
 left join {{ ref('stg_demo_alfa') }} alfa
 on pop.cod_ibge = alfa.cod_ibge
 and pop.faixa_etaria = alfa.faixa_etaria
+
+left join {{ ref('dim_demo_local') }} loc
+on  pop.cod_ibge = loc.cod_ibge
+and pop.nivel = loc.nivel

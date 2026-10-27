@@ -10,7 +10,6 @@ main_cte as (
 select
     *
 from {{ ref('rfn_demo_pop') }}
-where nivel = 'MU'
 ),
 
 ----OS DADOS NÃO POSSUEM FAIXA ETÁRIA 15-19 ANOS. ESSA CTE CALCULA
@@ -71,6 +70,7 @@ cte_faixa_faltante as (
 mulheres as (
     select
         faixa.cod_ibge,
+        faixa.nivel,
         unpivot.faixa_etaria,
         unpivot.mulheres
 
@@ -132,6 +132,7 @@ mulheres as (
 homens as (
     select
         faixa.cod_ibge,
+        faixa.nivel,
         unpivot.faixa_etaria,
         unpivot.homens
 
@@ -190,9 +191,10 @@ homens as (
 ),
 
 ----CTE FINAL DOS DADOS
-populcao as (
+populacao as (
 select
     m.cod_ibge,
+    m.nivel,
     m.faixa_etaria,
     h.homens + m.mulheres as pop_total,
     h.homens as homens_pop,
@@ -211,9 +213,98 @@ from mulheres m
 inner join homens h
 on  m.cod_ibge =  h.cod_ibge
 and m.faixa_etaria = h.faixa_etaria
+),
+
+norte as (
+select
+    '1' as cod_ibge,
+    'REGIAO' as nivel,
+    faixa_etaria,
+    sum(pop_total) as pop_total,
+    sum(homens_pop) as homens_pop,
+    sum(mulheres_pop) as mulheres_pop,
+    sum(mulheres_pop_perct) as mulheres_pop_perct,
+    sum(homens_pop_perct) as homens_pop_perct
+from populacao
+where nivel = 'UF'
+and cod_ibge in ('11', '12', '13', '14', '15', '16', '17')
+group by faixa_etaria
+),
+
+nordeste as (
+select
+    '2' as cod_ibge,
+    'REGIAO' as nivel,
+    faixa_etaria,
+    sum(pop_total) as pop_total,
+    sum(homens_pop) as homens_pop,
+    sum(mulheres_pop) as mulheres_pop,
+    sum(mulheres_pop_perct) as mulheres_pop_perct,
+    sum(homens_pop_perct) as homens_pop_perct
+from populacao
+where nivel = 'UF'
+and cod_ibge in ('21', '22', '23', '24', '25', '26', '27', '28', '29')
+group by faixa_etaria
+),
+
+centro_oeste as (
+select
+    '5' as cod_ibge,
+    'REGIAO' as nivel,
+    faixa_etaria,
+    sum(pop_total) as pop_total,
+    sum(homens_pop) as homens_pop,
+    sum(mulheres_pop) as mulheres_pop,
+    sum(mulheres_pop_perct) as mulheres_pop_perct,
+    sum(homens_pop_perct) as homens_pop_perct
+from populacao
+where nivel = 'UF'
+and cod_ibge in ('50', '51', '52', '53')
+group by faixa_etaria
+),
+
+sul as (
+select
+    '4' as cod_ibge,
+    'REGIAO' as nivel,
+    faixa_etaria,
+    sum(pop_total) as pop_total,
+    sum(homens_pop) as homens_pop,
+    sum(mulheres_pop) as mulheres_pop,
+    sum(mulheres_pop_perct) as mulheres_pop_perct,
+    sum(homens_pop_perct) as homens_pop_perct
+from populacao
+where nivel = 'UF'
+and cod_ibge in ('41', '42', '43')
+group by faixa_etaria
+),
+
+sudeste as (
+select
+    '3' as cod_ibge,
+    'REGIAO' as nivel,
+    faixa_etaria,
+    sum(pop_total) as pop_total,
+    sum(homens_pop) as homens_pop,
+    sum(mulheres_pop) as mulheres_pop,
+    sum(mulheres_pop_perct) as mulheres_pop_perct,
+    sum(homens_pop_perct) as homens_pop_perct
+from populacao
+where nivel = 'UF'
+and cod_ibge in ('31', '32', '33', '35')
+group by faixa_etaria
+),
+
+final as (
+select * from populacao union all
+select * from norte union all
+select * from nordeste union all
+select * from sudeste union all
+select * from sul union all
+select * from centro_oeste
 )
 
 select
     *,
     cast(current_timestamp as timestamp) as refresh_dt
-from populcao
+from final

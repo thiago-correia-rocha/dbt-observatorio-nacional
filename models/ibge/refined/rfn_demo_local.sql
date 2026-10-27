@@ -1,11 +1,11 @@
 {{  config(
-    tags = ['ibge','códigos','demografia'],
+    tags = ['ibge'],
     s3_data_dir = bucket() ~ '/refined/'
 ) }}
 
 select
     nivel,
-    cod,
+    cod as cod_ibge,
     sigla,
     municipio,
     municipio_c_uf,

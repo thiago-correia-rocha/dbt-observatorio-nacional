@@ -1,5 +1,5 @@
 {{  config(
-    tags = ['ibge','população','demografia'],
+    tags = ['ibge','demografia','população'],
     s3_data_dir = bucket() ~ '/refined/'
 ) }}
 select
