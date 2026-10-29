@@ -137,27 +137,42 @@ homens_favela as (
 favela as (
 select
     m.cod_ibge,
+    'MU' as nivel,
     m.faixa_etaria,
     h.homens_fav + m.mulheres_fav as pop_fav,
     h.homens_fav as homens_pop_fav,
-    m.mulheres_fav as mulheres_pop_fav,
-    case
-        when h.homens_fav != 0 and m.mulheres_fav != 0
-        then round(cast(m.mulheres_fav as double) / (h.homens_fav + m.mulheres_fav),4)
-        else 0
-    end    as mulheres_pop_fav_perct,
-    case
-        when h.homens_fav != 0 and m.mulheres_fav != 0
-        then round(cast(h.homens_fav as double) / (h.homens_fav + m.mulheres_fav),4)
-        else 0
-    end    as homens_pop_fav_perct
+    m.mulheres_fav as mulheres_pop_fav
 from mulheres_favela m
 inner join homens_favela h
 on  m.cod_ibge =  h.cod_ibge
 and m.faixa_etaria = h.faixa_etaria
+),
+
+uf as (
+select
+    substring(cod_ibge, 1,2) as cod_ibge,
+    'UF' as nivel,
+    fav.faixa_etaria,
+    sum(fav.pop_fav) as pop_fav,
+    sum(fav.mulheres_pop_fav) as mulheres_pop_fav,
+    sum(fav.homens_pop_fav) as homens_pop_fav
+from favela fav
+group by 1,3
+),
+
+regiao as (
+select
+    substring(cod_ibge, 1,1) as cod_ibge,
+    'REGIAO' as nivel,
+    fav.faixa_etaria,
+    sum(fav.pop_fav) as pop_fav,
+    sum(fav.mulheres_pop_fav) as mulheres_pop_fav,
+    sum(fav.homens_pop_fav) as homens_pop_fav
+from favela fav
+group by 1,3
 )
 
-select
-    *,
-    cast(current_timestamp as timestamp) as refresh_dt
-from favela
+select * from uf union all
+select * from regiao union all
+select * from favela
+

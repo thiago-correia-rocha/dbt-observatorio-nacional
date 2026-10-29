@@ -13,7 +13,7 @@ select
     'Norte' as descricao
 from {{ ref('rfn_demo_local') }}
 where nivel = 'UF'
-and sigla in ('AM','PA','RR','RO','AC','TO')
+and sigla in ('AM','PA','RR','RO','AC','TO','AP')
 ),
 
 nordeste as (
@@ -76,7 +76,7 @@ where nivel = 'MU'
 
 brasil as (
 select
-    '0' as cod_ibge,
+    '76' as cod_ibge,
     'BR' as nivel,
     'Brasil'  as descricao
 from {{ ref('rfn_demo_local') }}

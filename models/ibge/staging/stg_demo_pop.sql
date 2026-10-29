@@ -197,13 +197,13 @@ select
     m.nivel,
     m.faixa_etaria,
     h.homens + m.mulheres as pop_total,
-    h.homens as homens_pop,
     m.mulheres as mulheres_pop,
     case
         when h.homens != 0 and m.mulheres != 0
         then round( cast(m.mulheres as double) / (h.homens + m.mulheres),4)
         else 0
     end    as mulheres_pop_perct,
+    h.homens as homens_pop,
     case
         when h.homens != 0 and m.mulheres != 0
         then round( cast(h.homens as double) / (h.homens + m.mulheres),4)
@@ -212,6 +212,7 @@ select
 from mulheres m
 inner join homens h
 on  m.cod_ibge =  h.cod_ibge
+and m.nivel = h.nivel
 and m.faixa_etaria = h.faixa_etaria
 ),
 
@@ -221,10 +222,10 @@ select
     'REGIAO' as nivel,
     faixa_etaria,
     sum(pop_total) as pop_total,
-    sum(homens_pop) as homens_pop,
     sum(mulheres_pop) as mulheres_pop,
-    sum(mulheres_pop_perct) as mulheres_pop_perct,
-    sum(homens_pop_perct) as homens_pop_perct
+    round(cast(sum(mulheres_pop) as double) / sum(pop_total),4) as mulheres_pop_perct,
+    sum(homens_pop) as homens_pop,
+    round(cast(sum(homens_pop) as double) / sum(pop_total),4) as homens_pop_perct
 from populacao
 where nivel = 'UF'
 and cod_ibge in ('11', '12', '13', '14', '15', '16', '17')
@@ -237,10 +238,10 @@ select
     'REGIAO' as nivel,
     faixa_etaria,
     sum(pop_total) as pop_total,
-    sum(homens_pop) as homens_pop,
     sum(mulheres_pop) as mulheres_pop,
-    sum(mulheres_pop_perct) as mulheres_pop_perct,
-    sum(homens_pop_perct) as homens_pop_perct
+    round(cast(sum(mulheres_pop) as double) / sum(pop_total),4) as mulheres_pop_perct,
+    sum(homens_pop) as homens_pop,
+    round(cast(sum(homens_pop) as double) / sum(pop_total),4) as homens_pop_perct
 from populacao
 where nivel = 'UF'
 and cod_ibge in ('21', '22', '23', '24', '25', '26', '27', '28', '29')
@@ -253,10 +254,10 @@ select
     'REGIAO' as nivel,
     faixa_etaria,
     sum(pop_total) as pop_total,
-    sum(homens_pop) as homens_pop,
     sum(mulheres_pop) as mulheres_pop,
-    sum(mulheres_pop_perct) as mulheres_pop_perct,
-    sum(homens_pop_perct) as homens_pop_perct
+    round(cast(sum(mulheres_pop) as double) / sum(pop_total),4) as mulheres_pop_perct,
+    sum(homens_pop) as homens_pop,
+    round(cast(sum(homens_pop) as double) / sum(pop_total),4) as homens_pop_perct
 from populacao
 where nivel = 'UF'
 and cod_ibge in ('50', '51', '52', '53')
@@ -269,10 +270,10 @@ select
     'REGIAO' as nivel,
     faixa_etaria,
     sum(pop_total) as pop_total,
-    sum(homens_pop) as homens_pop,
     sum(mulheres_pop) as mulheres_pop,
-    sum(mulheres_pop_perct) as mulheres_pop_perct,
-    sum(homens_pop_perct) as homens_pop_perct
+    round(cast(sum(mulheres_pop) as double) / sum(pop_total),4) as mulheres_pop_perct,
+    sum(homens_pop) as homens_pop,
+    round(cast(sum(homens_pop) as double) / sum(pop_total),4) as homens_pop_perct
 from populacao
 where nivel = 'UF'
 and cod_ibge in ('41', '42', '43')
@@ -285,23 +286,30 @@ select
     'REGIAO' as nivel,
     faixa_etaria,
     sum(pop_total) as pop_total,
-    sum(homens_pop) as homens_pop,
     sum(mulheres_pop) as mulheres_pop,
-    sum(mulheres_pop_perct) as mulheres_pop_perct,
-    sum(homens_pop_perct) as homens_pop_perct
+    round(cast(sum(mulheres_pop) as double) / sum(pop_total),4) as mulheres_pop_perct,
+    sum(homens_pop) as homens_pop,
+    round(cast(sum(homens_pop) as double) / sum(pop_total),4) as homens_pop_perct
 from populacao
 where nivel = 'UF'
 and cod_ibge in ('31', '32', '33', '35')
 group by faixa_etaria
 ),
 
-final as (
+cte_union as (
 select * from populacao union all
 select * from norte union all
 select * from nordeste union all
 select * from sudeste union all
 select * from sul union all
 select * from centro_oeste
+),
+
+final as (
+    select
+        *,
+        dense_rank() over (partition by nivel, faixa_etaria order by pop_total desc) as ranking
+    from cte_union
 )
 
 select
