@@ -1,7 +1,9 @@
 {{
     config(
         tags = ['ibge','população','alfabetização','favela','faixa etária'],
-        s3_data_dir = bucket() ~ '/augmented/'
+        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
+        s3_data_naming = 'table',
+        post_hook = '{{ exporta_ibge_json(this.identifier) }}'
     )
 }}
 with

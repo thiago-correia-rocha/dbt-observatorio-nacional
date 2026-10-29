@@ -1,6 +1,7 @@
 {{ config(
     tags = ['ibge','demografia','população','favela'],
-    s3_data_dir = bucket() ~ '/staging/'
+    s3_data_dir = bucket() ~ '/staging/ibge/parquet/',
+    s3_data_naming = 'table'
 ) }}
 
 with

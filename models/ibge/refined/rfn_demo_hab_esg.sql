@@ -1,7 +1,8 @@
 {{
     config(
         tags=['ibge', 'demografia', 'habitação','saneamento','esgoto'],
-        s3_data_dir = bucket() ~ '/refined/'
+        s3_data_dir = bucket() ~ '/refined/ibge/parquet/',
+        s3_data_naming = 'table'
     )
 }}
 
