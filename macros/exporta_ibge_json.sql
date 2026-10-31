@@ -1,7 +1,6 @@
 {% macro exporta_ibge_json(table_name) %}
 
-
-    unload (
+	unload (
         select
             *
         from {{ table_name }}

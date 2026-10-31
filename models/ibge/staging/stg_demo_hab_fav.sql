@@ -68,7 +68,7 @@ cod_ibge in ('41', '42', '43')
 
 brasil as (
 select
-    '0' as cod_ibge,
+    '76' as cod_ibge,
     'BR' as nivel,
     sum(qtd_favelas) as qtd_favelas
 from cte_main

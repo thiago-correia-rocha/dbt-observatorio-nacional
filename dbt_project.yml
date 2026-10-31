@@ -44,9 +44,12 @@ models:
       refined:
         +materialized: table
         +format: parquet
+        +s3_data_naming: table
       staging:
         +materialized: table
         +file_format: parquet
+        +s3_data_naming: table
       augmented:
         +materialized: table
         +file_format: parquet
+        +s3_data_naming: table

@@ -2,7 +2,6 @@
     config(
         tags = ['ibge','população','alfabetização','favela','faixa etária'],
         s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
-        s3_data_naming = 'table',
         post_hook = '{{ exporta_ibge_json(this.identifier) }}'
     )
 }}
@@ -35,7 +34,7 @@ select
 
     --Favela
     fav.pop_fav,
-    round(cast(pop_fav as double) / cast(pop_total as double),4) as pop_fav_perct,
+    round(cast(pop_fav as double) / cast(pop_total as double),5) as pop_fav_perct,
     fav.mulheres_pop_fav,
     round(cast(mulheres_pop_fav as double) / cast(pop_total as double),4) as mulheres_pop_fav_perct,
     fav.homens_pop_fav,
@@ -62,7 +61,11 @@ and pop.nivel = loc.nivel
 final as (
 select
     *,
-    dense_rank() over (partition by nivel, faixa_etaria order by pop_fav_perct asc) as fav_ranking
+    case
+        when pop_fav_perct is not null
+        then dense_rank() over (partition by nivel, faixa_etaria order by pop_fav_perct asc)
+        else null
+    end as fav_ranking
 from cte_main
 )
 

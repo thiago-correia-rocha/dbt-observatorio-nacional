@@ -1,7 +1,7 @@
 {{
     config(
         tags = ['ibge'],
-        s3_data_dir = bucket() ~ '/augmented/'
+        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
     )
 }}
 
