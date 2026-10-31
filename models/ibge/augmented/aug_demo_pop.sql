@@ -1,6 +1,6 @@
 {{
     config(
-        tags = ['ibge','população','alfabetização','favela','faixa etária', 'povo originário'],
+        tags = ['ibge','população','alfabetização','cor e raça','favela','faixa etária', 'povo originário','religião'],
         s3_data_dir = bucket() ~ '/augmented/ibge/parquet/'
     )
 }}
@@ -69,6 +69,18 @@ select
     quilo_fora_terras,
     quilo_fora_terras_perct,
 
+    --Religiões
+    rel.total as rel_total,
+    rel.totalcatolica as rel_totalcatolica,
+    rel.totalevangelica as rel_totalevangelica,
+    rel.total_cristao as rel_total_cristao,
+    rel.totalespirita as rel_totalespirita,
+    rel.totalumbanda as rel_totalumbanda,
+    rel.totaltradind as rel_totaltradind,
+    rel.totaloutras as rel_totaloutras,
+    rel.totalateu as rel_totalateu,
+    rel.totalnaosabe as rel_totalnaosabe,
+    rel.totalsd as rel_totalsd,
     cast(current_timestamp as timestamp) as refresh_dt
 
 from {{ ref('stg_demo_pop') }} pop
@@ -100,4 +112,9 @@ and pop.faixa_etaria = 'Total'
 left join {{ ref('stg_demo_pop_pov') }} pov
 on pop.cod_ibge = pov.cod_ibge
 and pop.nivel = pov.nivel
+and pop.faixa_etaria = 'Total'
+
+left join {{ ref('stg_demo_pop_rel') }} rel
+on pop.cod_ibge = rel.cod_ibge
+and pop.nivel = rel.nivel
 and pop.faixa_etaria = 'Total'

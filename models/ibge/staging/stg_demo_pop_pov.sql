@@ -5,7 +5,7 @@
 
 with
 ----------------------------------Q    U   I   L   O   M   B   O---------------------------------------------------
--- Main: BR, UF e MU
+-- Main: UF e MU
 quilombola as (
     select
         cod_ibge,
@@ -332,6 +332,27 @@ sul_ind as (
     and cod_ibge in ('41', '42', '43')
     group by 1, 2
 ),
+brasil as (
+    select
+        '76' as cod_ibge,
+        'BR' as nivel,
+		sum(ind_total) as ind_total,
+		sum(ind_em_terras_total) as ind_em_terras_total,
+        round(cast(sum(ind_em_terras_total) as double) / sum(ind_total),4) as ind_em_terras_total_perct,
+        sum(ind_fora_terras_total) as ind_fora_terras_total,
+        round(cast(sum(ind_fora_terras_total) as double) / sum(ind_total),4) as ind_fora_terras_total_perct,
+        sum(ind_homens) as ind_homens,
+        round(cast(sum(ind_homens) as double) / sum(ind_total),4) as ind_homens_perct,
+        sum(ind_em_terras_homens) as ind_em_terras_homens,
+        sum(ind_fora_terras_homens) as ind_fora_terras_homens,
+        sum(ind_mulheres) as ind_mulheres,
+        round(cast(sum(ind_mulheres) as double) / sum(ind_total),4) as ind_mulheres_perct,
+        sum(ind_em_terras_mulheres) as ind_em_terras_mulheres,
+        sum(ind_fora_terras_mulheres) as ind_fora_terras_mulheres
+    from indigena
+    where nivel = 'UF'
+    group by 1, 2
+),
 ind_final as (
     select * from indigena
     union all
@@ -344,6 +365,8 @@ ind_final as (
     select * from sul_ind
     union all
     select * from centro_ind
+    union all
+    select * from brasil
 )
 select
         quilo.cod_ibge,

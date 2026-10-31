@@ -170,9 +170,21 @@ select
     sum(fav.homens_pop_fav) as homens_pop_fav
 from favela fav
 group by 1,3
+),
+brasil as (
+select
+    '76' as cod_ibge,
+    'BR' as nivel,
+    fav.faixa_etaria,
+    sum(fav.pop_fav) as pop_fav,
+    sum(fav.mulheres_pop_fav) as mulheres_pop_fav,
+    sum(fav.homens_pop_fav) as homens_pop_fav
+from favela fav
+group by 3
 )
 
 select * from uf union all
 select * from regiao union all
+select * from brasil union all
 select * from favela
 
