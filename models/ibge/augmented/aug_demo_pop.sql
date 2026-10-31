@@ -1,12 +1,11 @@
 {{
     config(
         tags = ['ibge','população','alfabetização','favela','faixa etária'],
-        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
-        post_hook = '{{ exporta_ibge_json(this.identifier) }}'
+        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/'
     )
 }}
-with
-cte_main as (
+
+
 select
     --Localização e Faixa etária
     loc.cod_ibge,
@@ -21,6 +20,11 @@ select
     pop.homens_pop,
     pop.homens_pop_perct,
     pop.ranking as pop_ranking,
+    case
+        when pop.pop_total != 0
+        then round(cast(pop.pop_total  as double) / cast(hab.col_total as double),2)
+        else 0
+    end as pop_per_dom,
 
     --Alfabetização
     cast(alfa.total_alfa as double) as pop_alfa,
@@ -38,7 +42,13 @@ select
     fav.mulheres_pop_fav,
     round(cast(mulheres_pop_fav as double) / cast(pop_total as double),4) as mulheres_pop_fav_perct,
     fav.homens_pop_fav,
-    round(cast(homens_pop_fav as double) / cast(pop_total as double),4) as homens_pop_fav_perct
+    round(cast(homens_pop_fav as double) / cast(pop_total as double),4) as homens_pop_fav_perct,
+    case
+        when fav.pop_fav != 0
+        then round(cast(fav.pop_fav  as double) / cast(hab_fav.domicilios_fav as double),2)
+        else 0
+    end as fav_pop_per_dom,
+    cast(current_timestamp as timestamp) as refresh_dt
 
 from {{ ref('stg_demo_pop') }} pop
 
@@ -55,21 +65,13 @@ and pop.faixa_etaria = alfa.faixa_etaria
 left join {{ ref('dim_demo_local') }} loc
 on  pop.cod_ibge = loc.cod_ibge
 and pop.nivel = loc.nivel
-and pop.nivel = loc.nivel
-),
 
-final as (
-select
-    *,
-    case
-        when pop_fav_perct is not null
-        then dense_rank() over (partition by nivel, faixa_etaria order by pop_fav_perct asc)
-        else null
-    end as fav_ranking
-from cte_main
-)
+left join {{ ref('stg_demo_hab') }} hab
+on pop.cod_ibge = hab.cod_ibge
+and pop.nivel = hab.nivel
+and pop.faixa_etaria = 'Total'
 
-select
-    *,
-    cast(current_timestamp as timestamp) as refresh_dt
-from final
+left join {{ ref('stg_demo_hab_fav') }} hab_fav
+on pop.cod_ibge = hab_fav.cod_ibge
+and pop.nivel = hab_fav.nivel
+and pop.faixa_etaria = 'Total'

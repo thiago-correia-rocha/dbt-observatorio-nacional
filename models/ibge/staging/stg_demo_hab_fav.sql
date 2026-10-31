@@ -62,7 +62,7 @@ cte_union as (
 final as (
     select
         *,
-        dense_rank() over (partition by nivel order by qtd_fav) as ranking_qtd_fav
+        dense_rank() over (partition by nivel order by qtd_fav,domicilios_fav) as ranking_qtd_fav
     from cte_union
 )
 
