@@ -411,6 +411,49 @@ models:
         data_tests:
         - not_null
 
+  - name: rfn_demo_hab_fav_mun
+    description: "Relação total de favelas e comunidades urbanas por Municipio/Unidade Federativa. Quantidade total de domicílios por cominidade urbana."
+    columns:
+      - name: cod
+        description: "Código da comunidade urbana no Ibge"
+        data_tests:
+          - not_null
+          - unique
+      - name: favela_completa
+        description: "Nome da comunidade urbana com Unidade Federativa e Municipio"
+      - name: favela
+        description: "Nome da comunidade urbana sem Unidade Federativa e Municipio"
+      - name: sigla
+        description: "Sigla da Unidade Federativa"
+      - name: municipio
+        description: "Nome do Municipio tal como registrado no Ibge"
+      - name: domicilios
+        description: "Quantidade total de domicílios por comunidade urbana"
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+  - name: rfn_demo_hab_fav_uf
+    description: "Quantidade total de favelas e comunidades urbanas por Unidade Federativa."
+    columns:
+      - name: cep
+        description: "Unidade Federativa ou Brasil"
+        data_tests:
+          - not_null
+          - unique
+      - name: nivel
+        description: "Define o nível do dado: UF ou BR (nacional)"
+      - name: sigla
+        description: "Sigla da Unidade Federativa"
+      - name: qtd_favelas
+        description: "Quantidade total de favelas ou comunidades urbanas por Unidade Federativa."
+      - name: refresh_dt
+        description: "Data e hora de atualização do modelo."
+        data_tests:
+        - not_null
+
+
   - name: rfn_demo_hab_esg
     description: "Dados do Censo Demográfico 2022 do IBGE sobre esgotamento sanitário dos domicílios brasileiros, incluindo formas de escoamento e instalações sanitárias."
     columns:

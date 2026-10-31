@@ -11,19 +11,20 @@ select
     'MU' as nivel,
     count(favela_completa) as qtd_fav,
     sum(domicilios) as domicilios_fav
-from {{ ref('rfn_demo_hab_fav') }} fav
-where cod_ibge is not null
+from {{ ref('rfn_demo_hab_fav_mun') }} fav
 group by 1,2
 
 ),
 
 regioes as (
 select
-    substring(cod_ibge,1,1) as cod_ibge,
+    substring(mun.cod_ibge,1,1) as cod_ibge,
     'REGIAO' as nivel,
-    sum(qtd_fav) as qtd_fav,
-    sum(domicilios_fav) as domicilios_fav
-from municipios
+    sum(uf.qtd_favelas) as qtd_fav,
+    sum(mun.domicilios_fav) as domicilios_fav
+from {{ ref('rfn_demo_hab_fav_uf') }} uf
+left join municipios mun
+on uf.sigla = mun.sigla
 group by 1,2
 ),
 
@@ -41,7 +42,7 @@ brasil as (
 select
     '76' as cod_ibge,
     'BR' as nivel,
-    sum(qtd_fav) + 54 as qtd_fav, --dados divergentes MU x BR no proprio SIDRA. Adicionado domicilios em nivel nacional para fazer match com os dados BR.
+    sum(qtd_fav) as qtd_fav, --dados divergentes MU x BR no proprio SIDRA. Adicionado domicilios em nivel nacional para fazer match com os dados BR.
     sum(domicilios_fav) + 16822 as domicilios_fav --dados divergentes MU x BR no proprio SIDRA. Adicionado domicilios em nivel nacional para fazer match com os dados BR.
 from municipios
 ),
@@ -49,6 +50,7 @@ from municipios
 final as (
     select * from municipios union all
     select * from uf union all
+    select * from regioes union all
     select * from brasil
 )
 
