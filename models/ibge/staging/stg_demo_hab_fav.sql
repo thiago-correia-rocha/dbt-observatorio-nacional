@@ -16,25 +16,30 @@ group by 1,2
 
 ),
 
-regioes as (
-select
-    substring(mun.cod_ibge,1,1) as cod_ibge,
-    'REGIAO' as nivel,
-    sum(uf.qtd_favelas) as qtd_fav,
-    sum(mun.domicilios_fav) as domicilios_fav
-from {{ ref('rfn_demo_hab_fav_uf') }} uf
-left join municipios mun
-on uf.sigla = mun.sigla
-group by 1,2
-),
 
 uf as (
 select
     substring(cod_ibge,1,2) as cod_ibge,
     'UF' as nivel,
-    sum(qtd_fav) as qtd_fav,
-    sum(domicilios_fav) as domicilios_fav
-from municipios
+    cast(uf.qtd_favelas as int) as qtd_fav,
+    sum(mun.domicilios) as domicilios_fav
+from {{ ref('rfn_demo_hab_fav_uf') }} uf
+inner join {{ ref('rfn_demo_hab_fav_mun') }} mun
+on uf.sigla = mun.sigla
+and mun.cod_ibge is not null
+group by 1,2,3
+),
+
+regioes as (
+select
+    substring(mun.cod_ibge,1,1) as cod_ibge,
+    'REGIAO' as nivel,
+    sum(uf.qtd_favelas) as qtd_fav,
+    sum(mun.domicilios) as domicilios_fav
+from {{ ref('rfn_demo_hab_fav_uf') }} uf
+inner join {{ ref('rfn_demo_hab_fav_mun') }} mun
+on uf.sigla = mun.sigla
+and mun.cod_ibge is not null
 group by 1,2
 ),
 
