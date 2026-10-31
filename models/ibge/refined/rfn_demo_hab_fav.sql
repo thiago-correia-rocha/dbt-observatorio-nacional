@@ -6,9 +6,11 @@
 }}
 
 select
-    cep,
-    nivel,
-    sigla,
-    cast(qtd_favelas as int) as qtd_favelas,
+    nullif(trim(cod),'') as cod_ibge,
+    favela_completa ,
+    sigla ,
+    favela ,
+    municipio ,
+    cast(nullif(trim(domicilios),'') as int) as domicilios,
     cast(current_timestamp as timestamp) as refresh_dt
-from {{ source('ibge', 'raw_demo_hab_fav') }}
+from {{ source('ibge', 'raw_demo_hab_fav_mun') }}
