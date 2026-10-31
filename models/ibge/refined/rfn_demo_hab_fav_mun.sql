@@ -6,11 +6,10 @@
 }}
 
 select
-    nullif(trim(cod),'') as cod_ibge,
-    favela_completa ,
-    sigla ,
-    favela ,
-    municipio ,
+    cod as cod_ibge,
+    municipio_c_uf,
+    municipio,
+    sigla,
     cast(nullif(trim(domicilios),'') as int) as domicilios,
     cast(current_timestamp as timestamp) as refresh_dt
 from {{ source('ibge', 'raw_demo_hab_fav_mun') }}

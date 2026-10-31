@@ -8,12 +8,13 @@ sources:
       - name: raw_demo_pop
       - name: raw_demo_alfa
       - name: raw_demo_ind
-      - name: raw_demo_hab_fav
+      - name: raw_demo_hab_fav_uf
       - name: raw_demo_hab_col
       - name: raw_demo_hab_abas
       - name: raw_demo_hab_ban
       - name: raw_demo_hab_esg
       - name: raw_demo_hab_fav_mun
+      - name: raw_demo_hab_rel_fav
 
 models:
 - name: rfn_demo_alfa
@@ -387,8 +388,7 @@ models:
     - not_null
 
 
-
-  - name: rfn_demo_hab_fav
+  - name: rfn_demo_hab_rel_fav
     description: "Relação total de favelas e comunidades urbanas por Municipio/Unidade Federativa. Quantidade total de domicílios por cominidade urbana."
     columns:
       - name: cod

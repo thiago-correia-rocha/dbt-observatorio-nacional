@@ -461,4 +461,17 @@
         location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_fav_mun/'
     {% endcall %}
 
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_hab_rel_fav (
+            cod string,
+            favela_completa string,
+            sigla string,
+            favela string,
+            municipio string,
+            domicilios string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_hab_rel_fav/'
+    {% endcall %}
+
 {% endmacro %}
