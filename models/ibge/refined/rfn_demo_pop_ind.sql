@@ -1,5 +1,5 @@
 {{  config(
-    tags = ['ibge','demografia','povos originários','indígenas'],
+    tags = ['ibge','demografia','povo originário','indígena'],
     s3_data_dir = bucket() ~ '/refined/ibge/parquet/'
 ) }}
 
@@ -13,4 +13,4 @@ select
     cast(homens  as int) as homens,
     cast(mulheres as int) as mulheres,
     cast(current_timestamp as timestamp) as refresh_dt
-from {{ source('ibge', 'raw_demo_ind') }}
+from {{ source('ibge', 'raw_demo_pop_ind') }}
