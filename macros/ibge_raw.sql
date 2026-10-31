@@ -683,15 +683,32 @@
 
     {% call statement() %}
         create external table if not exists ibge.raw_demo_area (
-            Cod string,
-            Cep string,
-            Nivel string,
-            UF string,
-            Area string,
-            Densidade string
+            cod string,
+            cep string,
+            nivel string,
+            uf string,
+            area string,
+            densidade string
         )
         stored as parquet
         location '{{ bucket() }}/raw/ibge/demografia/raw_demo_area/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists ibge.raw_demo_pop_cor (
+            cod string,
+            nivel string,
+            cep string,
+            sigla string,
+            total string,
+            branca string,
+            preta string,
+            amarela string,
+            parda string,
+            indigena string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/ibge/demografia/raw_demo_pop_cor/'
     {% endcall %}
 
 {% endmacro %}

@@ -608,7 +608,7 @@ models:
     - name: refresh_dt
       description: "Data e hora da execução da transformação do modelo refined."
 
-- name: rfn_demo_quilo
+- name: rfn_demo_pop_quilo
   description: "Dados da população quilombola no Brasil, provenientes do IBGE, incluindo a distribuição da população residente dentro e fora de territórios quilombolas."
   columns:
     - name: cod_ibge
@@ -764,6 +764,28 @@ models:
       description: "Quantidade de pessoas quilombolas residentes fora de territórios quilombolas."
     - name: quilo_fora_terras_perct
       description: "Proporção da população quilombola residente fora de territórios quilombolas relativamente à população quilombola total, expressa numa escala de 0 a 1."
+    - name: rel_tota
+      description: "Quantidade total de pessoas consideradas na distribuição da população por religião ou crença, conforme os dados do IBGE."
+    - name: rel_totalcatolica
+      description: "Quantidade de pessoas que declararam pertencer à religião católica."
+    - name: rel_totalevangelica
+      description: "Quantidade de pessoas que declararam pertencer a religiões evangélicas."
+    - name: rel_total_cristao
+      description: "Quantidade de pessoas classificadas nas categorias católica ou evangélica. Corresponde à soma das duas categorias e não abrange necessariamente todas as denominações cristãs."
+    - name: rel_totalespirita
+      description: "Quantidade de pessoas que declararam pertencer à religião espírita."
+    - name: rel_totalumbanda
+      description: "Quantidade de pessoas classificadas na categoria Umbanda, conforme a classificação da fonte original."
+    - name: rel_totaltradind
+      description: "Quantidade de pessoas que declararam seguir tradições religiosas indígenas, conforme a classificação da fonte original."
+    - name: rel_totaloutras
+      description: "Quantidade de pessoas classificadas em outras religiões ou crenças não discriminadas nas categorias anteriores."
+    - name: rel_totalateu
+      description: "Quantidade de pessoas classificadas na categoria ateu, conforme a classificação utilizada na fonte original."
+    - name: rel_totalnaosabe
+      description: "Quantidade de pessoas classificadas na categoria não sabe informar a religião ou crença."
+    - name: rel_totalsd
+      description: "Quantidade de pessoas classificadas na categoria SD, cuja definição deve ser confirmada na documentação da fonte original."
     - name: refresh_dt
       description: "Data e hora da última execução da transformação do modelo augmented."
 
