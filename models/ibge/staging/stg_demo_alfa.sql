@@ -1,7 +1,6 @@
 {{  config(
     tags = ['ibge','demografia','alfabetização'],
-    s3_data_dir = bucket() ~ '/staging/ibge/parquet/',
-    s3_data_naming = 'table'
+    s3_data_dir = bucket() ~ '/staging/ibge/parquet/'
 ) }}
 
 with
