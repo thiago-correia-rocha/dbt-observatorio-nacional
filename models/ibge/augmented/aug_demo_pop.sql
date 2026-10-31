@@ -1,6 +1,6 @@
 {{
     config(
-        tags = ['ibge','população','alfabetização','favela','faixa etária'],
+        tags = ['ibge','população','alfabetização','favela','faixa etária', 'povo originário'],
         s3_data_dir = bucket() ~ '/augmented/ibge/parquet/'
     )
 }}
@@ -48,6 +48,27 @@ select
         then round(cast(fav.pop_fav  as double) / cast(hab_fav.domicilios_fav as double),2)
         else 0
     end as fav_pop_per_dom,
+
+    --Povos Originários
+	ind_total,
+	ind_em_terras_total,
+    ind_em_terras_total_perct,
+    ind_fora_terras_total,
+    ind_fora_terras_total_perct,
+    ind_homens,
+    ind_homens_perct,
+    ind_em_terras_homens,
+    ind_fora_terras_homens,
+    ind_mulheres,
+    ind_mulheres_perct,
+    ind_em_terras_mulheres,
+    ind_fora_terras_mulheres,
+    quilo_total,
+    quilo_em_terras,
+    quilo_em_terras_perct,
+    quilo_fora_terras,
+    quilo_fora_terras_perct,
+
     cast(current_timestamp as timestamp) as refresh_dt
 
 from {{ ref('stg_demo_pop') }} pop
@@ -74,4 +95,9 @@ and pop.faixa_etaria = 'Total'
 left join {{ ref('stg_demo_hab_fav') }} hab_fav
 on pop.cod_ibge = hab_fav.cod_ibge
 and pop.nivel = hab_fav.nivel
+and pop.faixa_etaria = 'Total'
+
+left join {{ ref('stg_demo_pop_pov') }} pov
+on pop.cod_ibge = pov.cod_ibge
+and pop.nivel = pov.nivel
 and pop.faixa_etaria = 'Total'

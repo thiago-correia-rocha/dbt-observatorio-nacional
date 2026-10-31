@@ -1,5 +1,5 @@
 {{  config(
-    tags = ['ibge','demografia','povo originário','indígena'],
+    tags = ['ibge','demografia','população','povo originário','indígena'],
     s3_data_dir = bucket() ~ '/refined/ibge/parquet/'
 ) }}
 

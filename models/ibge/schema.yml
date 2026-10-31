@@ -666,62 +666,112 @@ models:
         data_tests:
         - not_null
 
+
   - name: aug_demo_pop
-    description: "Indicadores demográficos por município e faixa etária, integrando população, favelas e alfabetização do IBGE."
+    description: "Modelo augmented com indicadores demográficos do IBGE, incluindo população por sexo e faixa etária, alfabetização, população residente em favelas e comunidades urbanas, povos indígenas e população quilombola. Os dados abrangem diferentes níveis geográficos: Brasil, regiões, unidades federativas e municípios."
     columns:
       - name: cod_ibge
-        description: "Código IBGE do município."
+        description: "Código geográfico do IBGE que identifica o território analisado."
         data_tests:
           - not_null
+      - name: nivel
+        description: "Nível de agregação geográfica: BR (Brasil), REGIAO (grande região), UF (unidade federativa) ou MU (município)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['BR', 'REGIAO', 'UF', 'MU']
+      - name: descricao
+        description: "Nome do território correspondente ao código IBGE."
       - name: faixa_etaria
-        description: "Faixa etária ou total agregado."
+        description: "Faixa etária da população analisada, incluindo a categoria Total, que representa todas as idades."
         data_tests:
           - not_null
       - name: pop_total
-        description: "População total."
-      - name: pop_fav
-        description: "População residente em favelas."
-      - name: pop_fav_perc
-        description: "Proporção da população residente em favelas."
-      - name: pop_alfa
-        description: "População alfabetizada."
-      - name: pop_alfa_perc
-        description: "Proporção da população alfabetizada."
-      - name: homens_pop
-        description: "População masculina."
-      - name: homens_pop_fav
-        description: "Homens residentes em favelas."
-      - name: homens_pop_total_fav_perct
-        description: "Proporção de homens residentes em favelas face à população masculina. Rever cálculo SQL."
-      - name: homens_pop_fav_perct
-        description: "Proporção masculina definida no staging de favelas."
-      - name: homens_alfa
-        description: "Homens alfabetizados."
-      - name: homens_alfa_perct
-        description: "Proporção de homens alfabetizados. Rever cálculo SQL."
+        description: "Quantidade total de pessoas residentes no território e na faixa etária selecionada."
       - name: mulheres_pop
-        description: "População feminina."
-      - name: mulheres_pop_fav
-        description: "Mulheres residentes em favelas."
-      - name: mulheres_pop_total_fav_perct
-        description: "Proporção de mulheres residentes em favelas face à população feminina."
-      - name: mulheres_pop_fav_perct
-        description: "Proporção feminina definida no staging de favelas."
+        description: "Quantidade de mulheres residentes no território e na faixa etária selecionada."
+      - name: mulheres_pop_perct
+        description: "Proporção de mulheres relativamente à população total do território e da faixa etária, expressa numa escala de 0 a 1."
+      - name: homens_pop
+        description: "Quantidade de homens residentes no território e na faixa etária selecionada."
+      - name: homens_pop_perct
+        description: "Proporção de homens relativamente à população total do território e da faixa etária, expressa numa escala de 0 a 1."
+      - name: pop_ranking
+        description: "Posição do território no ranking populacional, ordenado pela população total em ordem decrescente, considerando o nível geográfico e a faixa etária."
+      - name: pop_per_dom
+        description: "Média de pessoas por domicílio, calculada pela divisão da população total pelo número de domicílios considerados no indicador de coleta de lixo. Disponível apenas para a faixa etária Total."
+      - name: pop_alfa
+        description: "Quantidade total de pessoas alfabetizadas no território e na faixa etária correspondente, conforme os dados disponíveis na fonte."
+      - name: pop_alfa_perc
+        description: "Proporção de pessoas alfabetizadas relativamente à população considerada no indicador de alfabetização, expressa numa escala de 0 a 1."
       - name: mulheres_alfa
-        description: "Mulheres alfabetizadas."
+        description: "Quantidade de mulheres alfabetizadas no território e na faixa etária correspondente."
       - name: mulheres_alfa_perct
-        description: "Proporção de mulheres alfabetizadas."
+        description: "Proporção de mulheres alfabetizadas relativamente ao total de mulheres considerado no indicador de alfabetização, expressa numa escala de 0 a 1."
+      - name: homens_alfa
+        description: "Quantidade de homens alfabetizados no território e na faixa etária correspondente."
+      - name: homens_alfa_perct
+        description: "Proporção de homens alfabetizados relativamente ao total de homens considerado no indicador de alfabetização, expressa numa escala de 0 a 1."
+      - name: alfa_ranking
+        description: "Posição do território no ranking de alfabetização, conforme os critérios de ordenação definidos na camada staging."
+      - name: pop_fav
+        description: "Quantidade de pessoas residentes em favelas e comunidades urbanas no território e na faixa etária correspondente."
+      - name: pop_fav_perct
+        description: "Proporção da população residente em favelas e comunidades urbanas relativamente à população total do território e da faixa etária, arredondada a cinco casas decimais."
+      - name: mulheres_pop_fav
+        description: "Quantidade de mulheres residentes em favelas e comunidades urbanas no território e na faixa etária correspondente."
+      - name: mulheres_pop_fav_perct
+        description: "Proporção de mulheres residentes em favelas e comunidades urbanas relativamente à população total do território e da faixa etária, arredondada a quatro casas decimais."
+      - name: homens_pop_fav
+        description: "Quantidade de homens residentes em favelas e comunidades urbanas no território e na faixa etária correspondente."
+      - name: homens_pop_fav_perct
+        description: "Proporção de homens residentes em favelas e comunidades urbanas relativamente à população total do território e da faixa etária, arredondada a quatro casas decimais."
+      - name: fav_pop_per_dom
+        description: "Média de pessoas residentes em favelas e comunidades urbanas por domicílio localizado nessas áreas. Calculada pela divisão da população em favelas pelo número de domicílios em favelas, apenas para a faixa etária Total."
+      - name: ind_total
+        description: "Quantidade total de pessoas indígenas residentes no território analisado, independentemente da localização em terras indígenas."
+      - name: ind_em_terras_total
+        description: "Quantidade de pessoas indígenas residentes dentro de terras indígenas."
+      - name: ind_em_terras_total_perct
+        description: "Proporção da população indígena residente em terras indígenas relativamente à população indígena total, expressa numa escala de 0 a 1."
+      - name: ind_fora_terras_total
+        description: "Quantidade de pessoas indígenas residentes fora de terras indígenas."
+      - name: ind_fora_terras_total_perct
+        description: "Proporção da população indígena residente fora de terras indígenas relativamente à população indígena total, expressa numa escala de 0 a 1."
+      - name: ind_homens
+        description: "Quantidade de homens indígenas residentes no território analisado."
+      - name: ind_homens_perct
+        description: "Proporção de homens relativamente à população indígena total, expressa numa escala de 0 a 1."
+      - name: ind_em_terras_homens
+        description: "Quantidade de homens indígenas residentes dentro de terras indígenas."
+      - name: ind_fora_terras_homens
+        description: "Quantidade de homens indígenas residentes fora de terras indígenas."
+      - name: ind_mulheres
+        description: "Quantidade de mulheres indígenas residentes no território analisado."
+      - name: ind_mulheres_perct
+        description: "Proporção de mulheres relativamente à população indígena total, expressa numa escala de 0 a 1."
+      - name: ind_em_terras_mulheres
+        description: "Quantidade de mulheres indígenas residentes dentro de terras indígenas."
+      - name: ind_fora_terras_mulheres
+        description: "Quantidade de mulheres indígenas residentes fora de terras indígenas."
+      - name: quilo_total
+        description: "Quantidade total de pessoas quilombolas residentes no território analisado."
+      - name: quilo_em_terras
+        description: "Quantidade de pessoas quilombolas residentes dentro de territórios quilombolas."
+      - name: quilo_em_terras_perct
+        description: "Proporção da população quilombola residente em territórios quilombolas relativamente à população quilombola total, expressa numa escala de 0 a 1."
+      - name: quilo_fora_terras
+        description: "Quantidade de pessoas quilombolas residentes fora de territórios quilombolas."
+      - name: quilo_fora_terras_perct
+        description: "Proporção da população quilombola residente fora de territórios quilombolas relativamente à população quilombola total, expressa numa escala de 0 a 1."
       - name: refresh_dt
-        description: "Data e hora da atualização dos indicadores."
-        data_tests:
-          - not_null
+        description: "Data e hora da última execução da transformação do modelo augmented."
 
   - name: aug_demo_hab
     description: "Modelo consolidado de indicadores de habitação e saneamento básico do Censo Demográfico 2022 do IBGE, abrangendo coleta de lixo, esgotamento sanitário, abastecimento de água, banheiros e quantidade de favelas por unidade federativa."
     columns:
       - name: cod_ibge
         description: "Código geográfico do IBGE que identifica o território analisado."
-      # Coleta de lixo
       - name: col_total
         description: "Total de domicílios considerados nos indicadores de destinação do lixo."
       - name: col_coletado
@@ -734,8 +784,6 @@ models:
         description: "Quantidade de domicílios cujo lixo é descartado em locais classificados como descarte direto pela fonte original."
       - name: col_outro_destino
         description: "Quantidade de domicílios com outras formas de destinação do lixo."
-
-      # Esgotamento sanitário
       - name: esg_total
         description: "Total de domicílios considerados nos indicadores de esgotamento sanitário."
       - name: esg_rede_geral
@@ -756,8 +804,6 @@ models:
         description: "Indicador percentual de esgotamento sanitário disponibilizado pela fonte original."
       - name: esg_ranking
         description: "Posição no ranking de esgotamento sanitário definido pela fonte original."
-
-      # Abastecimento de água
       - name: abas_total
         description: "Total de domicílios considerados nos indicadores de abastecimento de água."
       - name: abas_rede_geral
