@@ -81,7 +81,8 @@ select
     'Brasil'  as descricao
 from {{ ref('rfn_ibge_local') }}
 where nivel = 'BR'
-)
+),
+
 final as (
     select * from uf union all
     select distinct * from norte union all

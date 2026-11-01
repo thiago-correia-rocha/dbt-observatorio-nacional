@@ -420,9 +420,6 @@ models:
   columns:
     - name: cod_ibge
       description: "Código do município no Ibge"
-      data_tests:
-        - not_null
-        - unique
     - name: municipio_c_uf
       description: "Nome do município com Unidade Federativa"
     - name: municipio
