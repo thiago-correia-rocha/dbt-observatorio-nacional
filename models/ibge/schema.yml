@@ -18,6 +18,7 @@ sources:
       - name: raw_demo_hab_fav_mun
       - name: raw_demo_hab_rel_fav
       - name: raw_demo_area
+      - name: raw_demo_pop_cor
 
 models:
 - name: rfn_demo_alfa

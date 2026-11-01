@@ -26,6 +26,14 @@ select
         else 0
     end as pop_per_dom,
 
+    --Cor e Raça
+    round(cast(cor.branca as double) / pop.pop_total, 4) as branca_perct,
+    round(cast(cor.preta as double) / pop.pop_total, 4) as preta_perct,
+    round(cast(cor.amarela as double) / pop.pop_total, 4) as amarela_perct,
+    round(cast(cor.parda as double) / pop.pop_total, 4) as parda_perct,
+    round(cast(cor.indigena as double) / pop.pop_total, 4) as indigena_perct,
+
+
     --Alfabetização
     cast(alfa.total_alfa as double) as pop_alfa,
     alfa.total_alfa_perct as pop_alfa_perc,
@@ -71,16 +79,18 @@ select
 
     --Religiões
     rel.total as rel_total,
-    rel.totalcatolica as rel_totalcatolica,
-    rel.totalevangelica as rel_totalevangelica,
-    rel.total_cristao as rel_total_cristao,
-    rel.totalespirita as rel_totalespirita,
-    rel.totalumbanda as rel_totalumbanda,
-    rel.totaltradind as rel_totaltradind,
-    rel.totaloutras as rel_totaloutras,
-    rel.totalateu as rel_totalateu,
-    rel.totalnaosabe as rel_totalnaosabe,
-    rel.totalsd as rel_totalsd,
+    rel.totalcatolica_perct as rel_totalcatolica_perct,
+    rel.totalevangelica_perct as rel_totalevangelica_perct,
+    rel.total_cristao_perct as rel_total_cristao_perct,
+    rel.totalespirita_perct as rel_totalespirita_perct,
+    rel.totalumbanda_perct as rel_totalumbanda_perct,
+    rel.totaltradind_perct as rel_totaltradind_perct,
+    rel.totaloutras_perct as rel_totaloutras_perct,
+    rel.totalateu_perct as rel_totalateu_perct,
+    rel.totalnaosabe_perct as rel_totalnaosabe_perct,
+    rel.totalsd_perct as rel_totalsd_perct,
+
+
     cast(current_timestamp as timestamp) as refresh_dt
 
 from {{ ref('stg_demo_pop') }} pop
@@ -117,4 +127,9 @@ and pop.faixa_etaria = 'Total'
 left join {{ ref('stg_demo_pop_rel') }} rel
 on pop.cod_ibge = rel.cod_ibge
 and pop.nivel = rel.nivel
+and pop.faixa_etaria = 'Total'
+
+left join {{ ref('stg_demo_pop_cor') }} cor
+on pop.cod_ibge = cor.cod_ibge
+and pop.nivel = cor.nivel
 and pop.faixa_etaria = 'Total'
