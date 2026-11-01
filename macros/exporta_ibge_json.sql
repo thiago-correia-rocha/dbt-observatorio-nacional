@@ -1,4 +1,6 @@
-{% macro exporta_ibge_json(table_name, export, filtro) %}
+{% macro exporta_ibge_json(table_name, export, filtro, layer) %}
+
+    {% set bucket ='s3://observatorio-nacional-fs/' ~ layer  ~'/ibge/json/' ~ table_name.identifier ~ '/' ~ export ~ '/'  %}
 
     {% if export == 'populacao-religiao' %}
        {% set  campos = [
@@ -88,17 +90,26 @@
        %}
     {% endif %}
 
-    {% if export == 'habitacao-geral' %}
+    {% if export in ['habitacao-geral','area-geral'] %}
        {% set  campos = '*' %}
     {% endif %}
-    
+
+    {% if execute %}
+
+        {% do run_query('SELECT 1') %}
+
+        {% do adapter.delete_from_s3(bucket) %}
+
+    {% endif %}
+
+
 	unload (
         select
             {{ campos | join(',\n                ') }}
         from {{ table_name }}
         where {{ filtro }}
     )
-    to 's3://observatorio-nacional-fs/augmented/ibge/json/{{table_name.identifier}}/{{export}}'
+    to '{{ bucket }}'
     with (
         format = 'json',
         compression = 'none'

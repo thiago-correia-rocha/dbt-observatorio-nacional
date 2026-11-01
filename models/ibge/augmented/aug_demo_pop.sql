@@ -1,7 +1,12 @@
 {{
     config(
         tags = ['ibge','população','alfabetização','cor e raça','favela','faixa etária', 'povo originário','religião'],
-        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/'
+        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
+        post_hook =  ["{{ exporta_ibge_json(this,'populacao-religiao',\"faixa_etaria = 'Total'\", 'augmented') }}",
+                      "{{ exporta_ibge_json(this,'populacao-povos-originarios',\"faixa_etaria = 'Total'\",'augmented') }}",
+                      "{{ exporta_ibge_json(this,'populacao-cor',\"faixa_etaria = 'Total'\",'augmented') }}",
+                      "{{ exporta_ibge_json(this,'populacao-geral',\"1=1\",'augmented') }}"
+                     ]
     )
 }}
 

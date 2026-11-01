@@ -1,7 +1,8 @@
 {{
     config(
         tags = ['ibge','demografia','habitação','saneamento','favela'],
-        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/'
+        s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
+        post_hook =  ["{{ exporta_ibge_json(this,'habitacao-geral',\"1=1\",'augmented') }}"]
     )
 }}
 

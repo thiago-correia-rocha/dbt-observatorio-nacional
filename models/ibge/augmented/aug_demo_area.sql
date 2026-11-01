@@ -2,6 +2,7 @@
     config(
         tags = ['ibge','demografia','área','densidade','população'],
         s3_data_dir = bucket() ~ '/augmented/ibge/parquet/',
+        post_hook =  ["{{ exporta_ibge_json(this,'area-geral',\"1=1\",'augmented') }}"]
     )
 }}
 
