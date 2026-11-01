@@ -82,13 +82,19 @@ select
 from {{ ref('rfn_ibge_local') }}
 where nivel = 'BR'
 )
+final as (
+    select * from uf union all
+    select distinct * from norte union all
+    select distinct * from nordeste union all
+    select distinct * from centro_oeste union all
+    select distinct * from sul union all
+    select distinct * from sudeste union all
+    select distinct * from brasil union all
+    select * from municipio
+)
 
-select * from uf union all
-select distinct * from norte union all
-select distinct * from nordeste union all
-select distinct * from centro_oeste union all
-select distinct * from sul union all
-select distinct * from sudeste union all
-select distinct * from brasil union all
-select * from municipio
+select
+    *,
+    cast(current_timestamp as timestamp) as refresh_dt
+from final
 
