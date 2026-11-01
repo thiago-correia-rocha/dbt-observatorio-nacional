@@ -1,6 +1,6 @@
 {% macro exporta_ibge_json(table_name, export, filtro, layer) %}
 
-    {% set bucket ='s3://observatorio-nacional-fs/' ~ layer  ~'/ibge/json/' ~ table_name.identifier ~ '/' ~ export ~ '/'  %}
+    {% set bucket ='s3://observatorio-nacional-fs/' ~ layer  ~'/demografia/ibge/json/' ~ table_name.identifier ~ '/' ~ export ~ '/'  %}
 
     {% if export == 'populacao-religiao' %}
        {% set  campos = [

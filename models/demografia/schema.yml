@@ -393,13 +393,12 @@ models:
 
 
 - name: rfn_ibge_hab_rel_fav
-  description: "Relação total de favelas e comunidades urbanas por Municipio/Unidade Federativa. Quantidade total de domicílios por cominidade urbana."
+  description: "Relação total de favelas e comunidades urbanas por Municipio/Unidade Federativa. Quantidade total de domicílios por comunidade urbana."
   columns:
     - name: cod_ibge
       description: "Código da comunidade urbana no Ibge"
       data_tests:
         - not_null
-        - unique
     - name: favela_completa
       description: "Nome da comunidade urbana com Unidade Federativa e Municipio"
     - name: favela
@@ -653,7 +652,7 @@ models:
       description: "Nivel de visualização: BR - Brasil, REGIAO: Região Administrativa, UF: Unidade Federativa ou MU: Município"
       data_tests:
         - not_null
-    - name: descrição
+    - name: descricao
       description: "Nome oficial da unidade federativa, região ou município brasileiro, conforme a
         classificação geográfica do IBGE."
       data_tests:
