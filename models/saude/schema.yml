@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: saude
+    tables:
+      - name: raw_datasus_covid_caso
+      - name: raw_datasus_covid_vac
+      - name: raw_datasus_covid_gloss

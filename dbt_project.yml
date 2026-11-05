@@ -53,6 +53,26 @@ models:
         +materialized: table
         +file_format: parquet
         +s3_data_naming: table
+
+
+    saude:
+      refined:
+        +materialized: table
+        +format: parquet
+        +s3_data_naming: table
+        +schema: saude
+      staging:
+        +materialized: table
+        +format: parquet
+        +s3_data_naming: table
+        +schema: saude
+      augmented:
+        +materialized: table
+        +format: parquet
+        +s3_data_naming: table
+        +schema: saude
+
+
     master_data:
       augmented:
         +materialized: table
