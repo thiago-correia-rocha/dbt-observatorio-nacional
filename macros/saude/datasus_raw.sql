@@ -57,4 +57,14 @@
         location '{{ bucket() }}/raw/saude/datasus/raw_datasus_covid_vac/'
     {% endcall %}
 
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_cron (
+               data string,
+               manchete string,
+               url
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/raw_datasus_covid_cron/'
+    {% endcall %}
+
 {% endmacro %}
