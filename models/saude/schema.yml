@@ -21,59 +21,290 @@ sources:
       - name: raw_datasus_covid_tl_202502
 
 models:
-  - name: rfn_datasus_covid_caso_tl
-    description: "Série histórica da pandemia de COVID-19 no Brasil,
-      consolidando os dados epidemiológicos semestrais
-      de 2020 a 2025, provenientes das fontes DATASUS.
-      Contém indicadores de população, casos confirmados,
-      óbitos, recuperados e pessoas em acompanhamento,
-      com diferentes níveis de abrangência geográfica."
-    columns:
-      - name: regiao
-        description: "Região geográfica brasileira."
-      - name: estado
-        description: "Unidade da Federação (UF) do registo."
-      - name: municipio
-        description: "Nome do município, quando aplicável."
-      - name: coduf
-        description: "Código IBGE da Unidade da Federação."
-      - name: codmun
-        description: "Código do município na base de origem."
-      - name: codRegiaoSaude
-        description: "Código da região de saúde."
-      - name: nomeRegiaoSaude
-        description: "Nome da região de saúde."
-      - name: data
-        description: "Data de referência do registo epidemiológico."
-        data_type: date
-        data_tests:
-          - not_null
-      - name: semanaEpi
-        description: "Número da semana epidemiológica."
-        data_type: integer
-      - name: populacaoTCU2019
-        description: "Estimativa populacional de 2019 utilizada como referência nos indicadores epidemiológicos."
-        data_type: double
-      - name: casosAcumulado
-        description: "Total acumulado de casos confirmados de COVID-19."
-        data_type: double
-      - name: casosNovos
-        description: "Número de novos casos confirmados na data de referência."
-        data_type: double
-      - name: obitosAcumulado
-        description: "Total acumulado de óbitos por COVID-19."
-        data_type: double
-      - name: obitosNovos
-        description: "Número de novos óbitos registados na data de referência."
-        data_type: double
-      - name: Recuperadosnovos
-        description: "Quantidade de pessoas recuperadas reportada pela fonte."
-        data_type: double
-      - name: emAcompanhamentoNovos
-        description: "Quantidade de pessoas em acompanhamento reportada pela fonte."
-        data_type: double
-      - name: refresh_dt
-        description: "Data e hora da última execução do modelo dbt."
-        data_type: timestamp
-        data_tests:
-          - not_null
+- name: rfn_datasus_covid_caso
+  description: "Indicadores de casos e óbitos de COVID-19 com dados geográficos e datas provenientes de raw_datasus_covid_caso. Tipos convertidos na camada refined."
+  columns:
+  - name: cod_ibge
+    description: "Código geográfico IBGE utilizado para identificar o território; pode representar Brasil, UF ou município, conforme o nível."
+  - name: country
+    description: "País a que se refere o indicador."
+  - name: state
+    description: "Unidade da Federação a que se refere o registo; pode estar vazia para totais nacionais."
+  - name: city
+    description: "Município a que se refere o registo; pode estar vazio para totais nacionais ou estaduais."
+  - name: deaths
+    description: "Total acumulado de óbitos notificados por COVID-19."
+    data_type: double
+  - name: totalCases
+    description: "Total acumulado de casos notificados de COVID-19."
+    data_type: double
+  - name: deaths_per_100k_inhabitants
+    description: "Óbitos notificados por 100 mil habitantes, conforme cálculo da fonte."
+    data_type: double
+  - name: totalCases_per_100k_inhabitants
+    description: "Casos notificados por 100 mil habitantes, conforme cálculo da fonte."
+    data_type: double
+  - name: deaths_by_totalCases
+    description: "Relação entre óbitos e casos notificados; verificar a tipagem do modelo SQL. ATENÇÃO: o SQL atual converte este indicador para DATE; rever porque a métrica parece numérica."
+    data_type: date
+  - name: _source
+    description: "Identificação da fonte original do registo."
+  - name: date
+    description: "Data de referência do indicador."
+    data_type: date
+  - name: newCases
+    description: "Novos casos notificados no período de referência."
+    data_type: double
+  - name: newDeaths
+    description: "Novos óbitos notificados no período de referência."
+    data_type: double
+  - name: last_info_date
+    description: "Última data com informação disponível na fonte."
+    data_type: date
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
+- name: rfn_datasus_covid_caso_tl
+  description: "Série temporal de COVID-19 consolidada por UNION ALL de 12 fontes semestrais de 2020 a 2025. Inclui casos, óbitos e informações territoriais e epidemiológicas."
+  columns:
+  - name: regiao
+    description: "Região geográfica do Brasil."
+  - name: estado
+    description: "Unidade da Federação; preenchimento depende do nível geográfico da linha."
+  - name: municipio
+    description: "Município; preenchimento depende do nível geográfico da linha."
+  - name: coduf
+    description: "Código da Unidade da Federação na fonte."
+  - name: codmun
+    description: "Código do município na fonte; confirmar o padrão e o comprimento antes de juntar a outras bases."
+  - name: codRegiaoSaude
+    description: "Código da região de saúde segundo a fonte."
+  - name: nomeRegiaoSaude
+    description: "Denominação da região de saúde segundo a fonte."
+  - name: data
+    description: "Data de referência do acontecimento ou registo epidemiológico."
+    data_type: date
+  - name: semanaEpi
+    description: "Número da semana epidemiológica informado pela fonte."
+    data_type: integer
+  - name: populacaoTCU2019
+    description: "População de referência estimada para 2019, utilizada nos dados de vigilância epidemiológica."
+    data_type: double
+  - name: casosAcumulado
+    description: "Total acumulado de casos confirmados/notificados até à data de referência."
+    data_type: double
+  - name: casosNovos
+    description: "Novos casos notificados na data de referência."
+    data_type: double
+  - name: obitosAcumulado
+    description: "Total acumulado de óbitos notificados até à data de referência."
+    data_type: double
+  - name: obitosNovos
+    description: "Novos óbitos notificados na data de referência."
+    data_type: double
+  - name: Recuperadosnovos
+    description: "Valor de recuperados reportado pela fonte na data; confirmar semântica de novo versus acumulado."
+    data_type: double
+  - name: emAcompanhamentoNovos
+    description: "Valor de pessoas em acompanhamento reportado pela fonte na data; confirmar semântica de novo versus acumulado."
+    data_type: double
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
+- name: rfn_datasus_covid_cron
+  description: "Cronologia de acontecimentos da pandemia: agrupa os links das fontes por data e manchete, produzindo um array de URLs para cada combinação."
+  columns:
+  - name: data
+    description: "Data de referência do acontecimento ou registo epidemiológico."
+    data_type: date
+  - name: titulo
+    description: "Manchete/título do acontecimento constante da cronologia."
+  - name: url
+    description: "Uma ou mais URLs das fontes associadas ao registo; no modelo de cronologia é um array."
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
+- name: rfn_datasus_covid_vac
+  description: "Indicadores de casos, óbitos, testes e vacinação da COVID-19, com dados nacionais/estaduais e taxas provenientes de raw_datasus_covid_vac."
+  columns:
+  - name: country
+    description: "País a que se refere o indicador."
+  - name: state
+    description: "Unidade da Federação a que se refere o registo; pode estar vazia para totais nacionais."
+  - name: totalCases
+    description: "Total acumulado de casos notificados de COVID-19."
+    data_type: double
+  - name: totalCasesMS
+    description: "Número de casos divulgado pelo Ministério da Saúde segundo a fonte."
+    data_type: double
+  - name: notConfirmedByMS
+    description: "Quantidade de casos não confirmados pelo Ministério da Saúde, segundo a classificação da fonte."
+    data_type: double
+  - name: deaths
+    description: "Total acumulado de óbitos notificados por COVID-19."
+    data_type: double
+  - name: deathsMS
+    description: "Número de óbitos divulgado pelo Ministério da Saúde segundo a fonte."
+    data_type: double
+  - name: URL
+    description: "URL de referência na fonte original."
+  - name: deaths_per_100k_inhabitants
+    description: "Óbitos notificados por 100 mil habitantes, conforme cálculo da fonte."
+    data_type: double
+  - name: totalCases_per_100k_inhabitants
+    description: "Casos notificados por 100 mil habitantes, conforme cálculo da fonte."
+    data_type: double
+  - name: deaths_by_totalCases
+    description: "Relação entre óbitos e casos notificados; verificar a tipagem do modelo SQL."
+    data_type: double
+  - name: recovered
+    description: "Número de recuperados reportado pela fonte."
+    data_type: double
+  - name: suspects
+    description: "Quantidade de casos suspeitos reportada pela fonte."
+    data_type: double
+  - name: tests
+    description: "Número de testes reportado pela fonte."
+    data_type: double
+  - name: tests_per_100k_inhabitants
+    description: "Testes reportados por 100 mil habitantes, conforme cálculo da fonte."
+    data_type: double
+  - name: vaccinated
+    description: "Quantidade reportada na categoria vaccinated da fonte; verificar se corresponde a pessoas com ao menos uma dose."
+    data_type: double
+  - name: vaccinated_per_100_inhabitants
+    description: "Valor de vaccinated por 100 habitantes segundo a fonte."
+    data_type: double
+  - name: vaccinated_second
+    description: "Quantidade reportada na categoria vaccinated_second da fonte (segunda dose)."
+    data_type: double
+  - name: vaccinated_second_per_100_inhabitants
+    description: "Segundas doses por 100 habitantes segundo a fonte."
+    data_type: double
+  - name: vaccinated_single
+    description: "Quantidade reportada na categoria vaccinated_single da fonte (dose única)."
+    data_type: double
+  - name: vaccinated_single_per_100_inhabitants
+    description: "Doses únicas por 100 habitantes segundo a fonte."
+    data_type: double
+  - name: vaccinated_third
+    description: "Quantidade reportada na categoria vaccinated_third da fonte (terceira dose)."
+    data_type: double
+  - name: vaccinated_third_per_100_inhabitants
+    description: "Terceiras doses por 100 habitantes segundo a fonte."
+    data_type: double
+  - name: date
+    description: "Data de referência do indicador."
+    data_type: date
+  - name: newCases
+    description: "Novos casos notificados no período de referência."
+    data_type: double
+  - name: newDeaths
+    description: "Novos óbitos notificados no período de referência."
+    data_type: double
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
+- name: aug_datasus_covid_caso
+  description: "Integra indicadores territoriais de casos e óbitos, vacinação e população total do IBGE. Rácios populacionais são frações, arredondadas a quatro casas decimais."
+  columns:
+  - name: cod_ibge
+    description: "Código geográfico IBGE utilizado para identificar o território; pode representar Brasil, UF ou município, conforme o nível."
+  - name: nivel
+    description: "Nível de agregação territorial do registo (Brasil, UF ou município, conforme o modelo de staging)."
+  - name: covid_obit
+    description: "Óbitos acumulados de COVID-19 no território, provenientes do modelo de staging."
+  - name: obit_perct
+    description: "Razão entre óbitos acumulados e população total de referência do IBGE (fração entre 0 e 1, não multiplicada por 100)."
+  - name: covid_caso
+    description: "Casos acumulados de COVID-19 no território, provenientes do modelo de staging."
+  - name: caso_perct
+    description: "Razão entre casos acumulados e população total de referência do IBGE (fração entre 0 e 1). Não equivale à proporção de indivíduos infectados."
+  - name: covid_obit_100_mil
+    description: "Óbitos por 100 mil habitantes, conforme cálculo no staging."
+  - name: covid_caso_100_mil
+    description: "Casos por 100 mil habitantes, conforme cálculo no staging."
+  - name: covid_obit_por_caso
+    description: "Relação entre óbitos e casos notificados no território, conforme cálculo no staging."
+  - name: covid_data
+    description: "Data de referência dos indicadores de casos e óbitos."
+    data_type: date
+  - name: covid_novo_caso
+    description: "Número de novos casos reportados na data de referência."
+  - name: covid_novo_obit
+    description: "Número de novos óbitos reportados na data de referência."
+  - name: url
+    description: "Uma ou mais URLs das fontes associadas ao registo; no modelo de cronologia é um array."
+  - name: vacinados
+    description: "Quantidade reportada de vacinados; consultar definição do staging de vacinação."
+  - name: vacinados_perct
+    description: "Razão entre vacinados e população total de referência (fração entre 0 e 1)."
+  - name: vacinados_2_dose
+    description: "Quantidade reportada de pessoas/doses na categoria segunda dose."
+  - name: vacinados_2_dose_perct
+    description: "Razão entre vacinados_2_dose e população total de referência (fração entre 0 e 1)."
+  - name: vacinados_dose_unica
+    description: "Quantidade reportada na categoria dose única."
+  - name: vacinados_dose_unica_perct
+    description: "Razão entre vacinados_dose_unica e população total de referência (fração entre 0 e 1)."
+  - name: imunizados
+    description: "Indicador calculado no staging de vacinação para imunizados; conferir critério de agregação na fonte."
+  - name: imunizados_perct
+    description: "Razão entre imunizados e população total de referência (fração entre 0 e 1)."
+  - name: vacinados_3_dose
+    description: "Quantidade reportada na categoria terceira dose."
+  - name: vacinados_3_dose_perct
+    description: "Razão entre vacinados_3_dose e população total de referência (fração entre 0 e 1)."
+  - name: vacinas_aplicadas
+    description: "Total de aplicações de vacinas segundo a fórmula utilizada no staging de vacinação; não representa pessoas únicas."
+  - name: recuperados
+    description: "Quantidade de recuperados reportada no staging de vacinação."
+  - name: testes
+    description: "Quantidade de testes reportada no staging de vacinação."
+  - name: ultima_data
+    description: "Data mais recente com informação de casos e óbitos no modelo de staging."
+    data_type: date
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
+- name: aug_datasus_covid_caso_tl
+  description: "Série temporal de casos e óbitos enriquecida com razões relativas à população total do IBGE por território e data."
+  columns:
+  - name: cod_ibge
+    description: "Código geográfico IBGE utilizado para identificar o território; pode representar Brasil, UF ou município, conforme o nível."
+  - name: nivel
+    description: "Nível de agregação territorial do registo (Brasil, UF ou município, conforme o modelo de staging)."
+  - name: data
+    description: "Data de referência do acontecimento ou registo epidemiológico."
+    data_type: date
+  - name: casosacumulado
+    description: "Total acumulado de casos por data e território, proveniente do staging da série temporal."
+  - name: casosacumulado_perct
+    description: "Razão entre casos acumulados e população total de referência do IBGE (fração entre 0 e 1)."
+  - name: obitosacumulado
+    description: "Total acumulado de óbitos por data e território, proveniente do staging da série temporal."
+  - name: obitosacumulado_perct
+    description: "Razão entre óbitos acumulados e população total de referência do IBGE (fração entre 0 e 1)."
+  - name: casosnovos
+    description: "Novos casos na data de referência, provenientes do staging da série temporal."
+  - name: obitosNovos
+    description: "Novos óbitos notificados na data de referência."
+  - name: Recuperadosnovos
+    description: "Valor de recuperados reportado pela fonte na data; confirmar semântica de novo versus acumulado."
+  - name: emAcompanhamentoNovos
+    description: "Valor de pessoas em acompanhamento reportado pela fonte na data; confirmar semântica de novo versus acumulado."
+  - name: refresh_dt
+    description: "Data e hora em que o modelo dbt foi executado e o registo foi gerado."
+    data_type: timestamp
+    data_tests:
+    - not_null
