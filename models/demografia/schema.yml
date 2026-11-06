@@ -632,37 +632,6 @@ models:
       description: "Data e hora da execução da transformação do modelo refined."
 
 
-- name: dim_md_geo
-  description: "Dimensão geográfica dos municípios brasileiros, construída a partir
-    dos dados do IBGE. Contém o código identificador do município,
-    a sigla da Unidade da Federação (UF) e o nome do município.
-    Considera exclusivamente os registos classificados com nível
-    territorial 'MU' (Município).
-    Permite relacionar os dados populacionais com a sua localização
-    geográfica e realizar análises por município e UF."
-  columns:
-    - name: cod_ibge
-      description: "Código geográfico oficial do IBGE que identifica o município
-        brasileiro. Utilizado como chave de relacionamento com as
-        tabelas populacionais."
-      data_tests:
-        - not_null
-        - unique
-    - name: nivel
-      description: "Nivel de visualização: BR - Brasil, REGIAO: Região Administrativa, UF: Unidade Federativa ou MU: Município"
-      data_tests:
-        - not_null
-    - name: descricao
-      description: "Nome oficial da unidade federativa, região ou município brasileiro, conforme a
-        classificação geográfica do IBGE."
-      data_tests:
-        - not_null
-    - name: refresh_dt
-      description: "Data e hora de atualização do modelo."
-      data_tests:
-      - not_null
-
-
 - name: aug_ibge_pop
   description: "Modelo augmented com indicadores demográficos do IBGE, incluindo população por sexo e faixa etária, alfabetização, população residente em favelas e comunidades urbanas, povos indígenas e população quilombola. Os dados abrangem diferentes níveis geográficos: Brasil, regiões, unidades federativas e municípios."
   columns:
