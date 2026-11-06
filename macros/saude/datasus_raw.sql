@@ -21,7 +21,7 @@
             last_info_date string
         )
         stored as parquet
-        location '{{ bucket() }}/raw/saude/datasus/raw_datasus_covid_caso/'
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_caso/'
     {% endcall %}
 
     {% call statement() %}
@@ -54,7 +54,7 @@
                 newDeaths string
         )
         stored as parquet
-        location '{{ bucket() }}/raw/saude/datasus/raw_datasus_covid_vac/'
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_vac/'
     {% endcall %}
 
     {% call statement() %}

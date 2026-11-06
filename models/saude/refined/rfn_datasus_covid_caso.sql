@@ -14,7 +14,7 @@ select
     cast(totalCases as double) as totalCases,
     cast(deaths_per_100k_inhabitants as double) as deaths_per_100k_inhabitants,
     cast(totalCases_per_100k_inhabitants as double) as totalCases_per_100k_inhabitants,
-    cast(deaths_by_totalCases as double) as deaths_by_totalCases,
+    cast(deaths_by_totalCases as date) as deaths_by_totalCases,
     _source,
     cast(date as date) date,
     cast(newCases  as double) as newCases,

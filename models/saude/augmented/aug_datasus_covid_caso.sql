@@ -2,7 +2,7 @@
     config(
         tags=['datasus', 'saúde', 'covid-19', 'pandemia', 'vacinação', 'caso e óbito'],
         s3_data_dir = bucket() ~ '/augmented/saude/datasus/parquet/',
-        post_hook =  ["{{ exporta_datasus_json(this,'covid-caso',\"1=1 order by data\", 'augmented') }}"]
+        post_hook =  ["{{ exporta_datasus_json(this,'covid-caso',\"1=1 \", 'augmented') }}"]
     )
 }}
 
