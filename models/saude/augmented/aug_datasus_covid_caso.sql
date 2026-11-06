@@ -1,7 +1,7 @@
 {{
     config(
-        tags=['datasus', 'saúde', 'covid-19', 'pandemia', 'vacinação'],
-        s3_data_dir = bucket() ~ '/augmented/saude/parquet/'
+        tags=['datasus', 'saúde', 'covid-19', 'pandemia', 'vacinação', 'caso e óbito'],
+        s3_data_dir = bucket() ~ '/augmented/saude/datasus/parquet/'
     )
 }}
 
