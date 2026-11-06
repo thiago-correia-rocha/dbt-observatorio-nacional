@@ -1,7 +1,8 @@
 {{
     config(
         tags=['datasus', 'saúde', 'covid-19', 'pandemia', 'vacinação'],
-        s3_data_dir = bucket() ~ '/augmented/saude/datasus/parquet/'
+        s3_data_dir = bucket() ~ '/augmented/saude/datasus/parquet/',
+        post_hook =  ["{{ exporta_datasus_json(this,'covid-caso-tl',\"1=1 order by data\", 'augmented') }}"]
     )
 }}
 
