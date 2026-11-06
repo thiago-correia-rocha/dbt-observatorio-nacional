@@ -61,10 +61,286 @@
         create external table if not exists saude.raw_datasus_covid_cron (
                data string,
                manchete string,
-               url
+               url string
         )
         stored as parquet
-        location '{{ bucket() }}/raw/saude/datasus/raw_datasus_covid_cron/'
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_cron/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202001 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202001/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202002 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202002/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202101 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202101/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202102 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202102/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202201 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202201/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202202 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202202/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202301 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202301/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202302 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202302/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202401 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202401/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202402 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202402/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202501 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202501/'
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists saude.raw_datasus_covid_tl_202502 (
+            regiao string,
+            estado string,
+            municipio string,
+            coduf string,
+            codmun string,
+            codRegiaoSaude string,
+            nomeRegiaoSaude string,
+            data string,
+            semanaEpi string,
+            populacaoTCU2019 string,
+            casosAcumulado string,
+            casosNovos string,
+            obitosAcumulado string,
+            obitosNovos string,
+            Recuperadosnovos string,
+            emAcompanhamentoNovos string
+        )
+        stored as parquet
+        location '{{ bucket() }}/raw/saude/datasus/parquet/raw_datasus_covid_tl_202502/'
     {% endcall %}
 
 {% endmacro %}

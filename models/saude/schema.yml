@@ -6,3 +6,74 @@ sources:
       - name: raw_datasus_covid_caso
       - name: raw_datasus_covid_vac
       - name: raw_datasus_covid_gloss
+      - name: raw_datasus_covid_cron
+      - name: raw_datasus_covid_tl_202001
+      - name: raw_datasus_covid_tl_202002
+      - name: raw_datasus_covid_tl_202101
+      - name: raw_datasus_covid_tl_202102
+      - name: raw_datasus_covid_tl_202201
+      - name: raw_datasus_covid_tl_202202
+      - name: raw_datasus_covid_tl_202301
+      - name: raw_datasus_covid_tl_202302
+      - name: raw_datasus_covid_tl_202401
+      - name: raw_datasus_covid_tl_202402
+      - name: raw_datasus_covid_tl_202501
+      - name: raw_datasus_covid_tl_202502
+
+models:
+  - name: rfn_datasus_covid_caso_tl
+    description: "Série histórica da pandemia de COVID-19 no Brasil,
+      consolidando os dados epidemiológicos semestrais
+      de 2020 a 2025, provenientes das fontes DATASUS.
+      Contém indicadores de população, casos confirmados,
+      óbitos, recuperados e pessoas em acompanhamento,
+      com diferentes níveis de abrangência geográfica."
+    columns:
+      - name: regiao
+        description: "Região geográfica brasileira."
+      - name: estado
+        description: "Unidade da Federação (UF) do registo."
+      - name: municipio
+        description: "Nome do município, quando aplicável."
+      - name: coduf
+        description: "Código IBGE da Unidade da Federação."
+      - name: codmun
+        description: "Código do município na base de origem."
+      - name: codRegiaoSaude
+        description: "Código da região de saúde."
+      - name: nomeRegiaoSaude
+        description: "Nome da região de saúde."
+      - name: data
+        description: "Data de referência do registo epidemiológico."
+        data_type: date
+        data_tests:
+          - not_null
+      - name: semanaEpi
+        description: "Número da semana epidemiológica."
+        data_type: integer
+      - name: populacaoTCU2019
+        description: "Estimativa populacional de 2019 utilizada como referência nos indicadores epidemiológicos."
+        data_type: double
+      - name: casosAcumulado
+        description: "Total acumulado de casos confirmados de COVID-19."
+        data_type: double
+      - name: casosNovos
+        description: "Número de novos casos confirmados na data de referência."
+        data_type: double
+      - name: obitosAcumulado
+        description: "Total acumulado de óbitos por COVID-19."
+        data_type: double
+      - name: obitosNovos
+        description: "Número de novos óbitos registados na data de referência."
+        data_type: double
+      - name: Recuperadosnovos
+        description: "Quantidade de pessoas recuperadas reportada pela fonte."
+        data_type: double
+      - name: emAcompanhamentoNovos
+        description: "Quantidade de pessoas em acompanhamento reportada pela fonte."
+        data_type: double
+      - name: refresh_dt
+        description: "Data e hora da última execução do modelo dbt."
+        data_type: timestamp
+        data_tests:
+          - not_null
