@@ -64,7 +64,7 @@
             ano_referencia string
         )
         row format serde
-            'org.apache.hadoop.hive.serde2.opencsvserde'
+            'org.apache.hadoop.hive.serde2.OpenCSVSerde'
         with serdeproperties (
             'separatorChar' = ',',
             'quoteChar' = '"',
