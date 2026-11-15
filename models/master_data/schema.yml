@@ -5,6 +5,7 @@ sources:
     tables:
       - name: raw_md_geo
       - name: raw_md_data
+      - name: raw_md_portal
 
 models:
 - name: dim_md_geo

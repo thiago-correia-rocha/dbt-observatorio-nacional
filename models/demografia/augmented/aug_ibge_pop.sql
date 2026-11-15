@@ -138,3 +138,13 @@ left join {{ ref('stg_ibge_pop_cor') }} cor
 on pop.cod_ibge = cor.cod_ibge
 and pop.nivel = cor.nivel
 and pop.faixa_etaria = 'Total'
+
+order by
+case nivel
+    when 'BR' then 1
+    when 'REGIAO' then 2
+    when 'UF' then 3
+    when 'MU' then 4
+    else 5
+end,
+descricao asc

@@ -27,21 +27,52 @@
     {% endcall %}
 
     {% call statement() %}
-        CREATE EXTERNAL TABLE IF NOT EXISTS master_data.raw_md_geo (
+        create external table if not exists master_data.raw_md_geo (
             cod_ibge string,
             nivel string,
             descricao string
         )
-        ROW FORMAT SERDE
+        row format serde
             'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-        WITH SERDEPROPERTIES (
+        with serdeproperties (
             'separatorChar' = ';',
             'quoteChar' = '"',
             'escapeChar' = '\\'
         )
-        STORED AS TEXTFILE
-        LOCATION '{{ bucket() }}/raw/master_data/csv/raw_md_geo/'
-        TBLPROPERTIES (
+        stored as textfile
+        location '{{ bucket() }}/raw/master_data/csv/raw_md_geo/'
+        tblproperties (
+            'skip.header.line.count' = '1'
+        );
+    {% endcall %}
+
+    {% call statement() %}
+        create external table if not exists master_data.raw_md_portal (
+            id_conteudo string,
+            tema string,
+            indicador string,
+            titulo_principal string,
+            texto_principal string,
+            titulo_ajuda string,
+            texto_ajuda string,
+            titulo_importancia string,
+            texto_importancia string,
+            fonte string,
+            url_fonte string,
+            url_wiki string,
+            url_dashboard string,
+            ano_referencia string
+        )
+        row format serde
+            'org.apache.hadoop.hive.serde2.opencsvserde'
+        with serdeproperties (
+            'separatorChar' = ',',
+            'quoteChar' = '"',
+            'escapeChar' = '\\'
+        )
+        stored as textfile
+        location '{{ bucket() }}/raw/master_data/csv/raw_md_portal/'
+        tblproperties (
             'skip.header.line.count' = '1'
         );
     {% endcall %}
