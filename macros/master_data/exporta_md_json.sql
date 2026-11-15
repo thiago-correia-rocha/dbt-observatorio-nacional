@@ -6,6 +6,25 @@
        {% set  campos = ['cod_ibge','nivel','descricao','qtd_municipios'] %}
     {% endif %}
 
+    {% if export == 'portal-geral' %}
+       {% set  campos = [
+            'id_conteudo',
+            'tema',
+            'indicador',
+            'titulo_principal',
+            'texto_principal',
+            'titulo_ajuda',
+            'texto_ajuda',
+            'titulo_importancia',
+            'texto_importancia',
+            'fonte',
+            'url_fonte',
+            'url_wiki',
+            'url_dashboard',
+            'ano_referencia'
+       ] %}
+    {% endif %}
+
     {% if execute %}
 
         {% do run_query('SELECT 1') %}
